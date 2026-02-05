@@ -100,6 +100,10 @@ Cerca es una plataforma SaaS (Software as a Service) multi-tenant diseñada para
 ### Capa de Infraestructura
 - **SupabaseRepository:** Implementación concreta de la persistencia con RLS.
 - **VoIPProvider:** Abstracción para el manejo de llamadas (Twilio/Asterisk/Nativo).
+- **SupabaseRepository:** Implementación concreta de la persistencia con RLS.
+- **VoIPProvider:** Abstracción para el manejo de llamadas (Twilio/Asterisk/Nativo).
+- **PaymentProvider (Wompi):** Integración con Pasarela de Pagos Wompi.
+    - [Documentación Wompi - Inicio Rápido](https://docs.wompi.co/docs/colombia/inicio-rapido/)
 - **IoTGateway:** Transformador de señales MQTT a modelos de datos.
 
 ---
