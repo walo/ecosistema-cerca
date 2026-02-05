@@ -7,22 +7,30 @@ Este documento define la arquitectura de alto nivel del ecosistema Cerca, detall
 ```mermaid
 graph TD
     subgraph "Clientes (Frontends)"
-        WA[Admin Web / SaaS Admin<br/>(Angular 17+)]
-        MA[Resident App<br/>(Flutter)]
-        PA[Porter App<br/>(Kotlin/Android)]
+        WA["Admin Web / SaaS Admin
+(Angular 17+)"]
+        MA["Resident App
+(Flutter)"]
+        PA["Porter App
+(Kotlin/Android)"]
     end
 
     subgraph "Gateway & Backend (Supabase)"
-        Auth[Supabase Auth<br/>(JWT & RLS)]
-        DB[(PostgreSQL Database<br/>Multi-tenant)]
-        Edge[Edge Functions<br/>(Deno)]
+        Auth["Supabase Auth
+(JWT & RLS)"]
+        DB[("PostgreSQL Database
+Multi-tenant")]
+        Edge["Edge Functions
+(Deno)"]
         Realtime[Realtime Engine]
         Storage[Storage Buckets]
     end
 
     subgraph "Servicios Externos"
-        Wompi[Pasarela Wompi<br/>(Pagos)]
-        FCM[Firebase Cloud Messaging<br/>(Push Notifications)]
+        Wompi["Pasarela Wompi
+(Pagos)"]
+        FCM["Firebase Cloud Messaging
+(Push Notifications)"]
     end
 
     %% Flujos de Comunicación
