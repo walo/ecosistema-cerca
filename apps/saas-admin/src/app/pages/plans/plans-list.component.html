@@ -1,0 +1,83 @@
+<app-section-header titlePrefix="Ecosistema de" titleAccent="Planes"
+    subtitle="Arquitectura de monetización para el ecosistema Acciona PH." actionLabel="Crear Nuevo Plan"
+    actionIcon="plus" (actionClicked)="navigateToNew()">
+</app-section-header>
+
+<div class="plans-container">
+    @if (loading()) {
+    <div nz-row [nzGutter]="[24, 24]">
+        @for (i of [1,2,3]; track i) {
+        <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+            <app-cerca-card [hoverEffect]="false">
+                <div style="padding: 24px;">
+                    <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+                </div>
+            </app-cerca-card>
+        </div>
+        }
+    </div>
+    } @else if (plans().length === 0) {
+    <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+        [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+        <ng-template #contentTpl>
+            <span nz-typography nzType="secondary">No has definido planes aún</span>
+        </ng-template>
+        <ng-template #footerTpl>
+            <button nz-button nzType="primary" routerLink="new">Configurar Oferta Comercial</button>
+        </ng-template>
+    </nz-empty>
+    } @else {
+    <div nz-row [nzGutter]="[24, 24]">
+        @for (plan of plans(); track plan.id) {
+        <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="8">
+            <nz-card [nzTitle]="cardTitle" [nzExtra]="extraTemplate" [nzActions]="[actionEdit, actionDelete]"
+                class="plan-card">
+                <div class="plan-price">
+                    <span class="currency">$</span>
+                    <span class="amount">{{ plan.price | number:'1.0-0' }}</span>
+                    <span class="period">{{ plan.billing_cycle === 12 ? '/ año' : '/ mes' }}</span>
+                </div>
+
+                <p class="plan-description">{{ plan.description || 'Acceso al ecosistema premium.' }}</p>
+
+                <div class="plan-limits">
+                    <nz-space nzDirection="vertical" style="width: 100%">
+                        <div *nzSpaceItem class="limit-item">
+                            <span nz-typography nzType="secondary">Límite Endpoints</span>
+                            <span nz-typography nzStrong>{{ plan.max_users || 'Ilimitado' }}</span>
+                        </div>
+                        <div *nzSpaceItem class="limit-item">
+                            <span nz-typography nzType="secondary">Días de Prueba</span>
+                            <span nz-typography nzStrong>{{ plan.trial_days || 0 }} días</span>
+                        </div>
+                    </nz-space>
+                </div>
+
+                <ng-template #cardTitle>
+                    <span class="plan-name">{{ plan.name }}</span>
+                    <div class="plan-code">{{ plan.code }}</div>
+                </ng-template>
+
+                <ng-template #extraTemplate>
+                    <app-cerca-status-badge [status]="plan.is_active ? 'active' : 'inactive'"
+                        [label]="plan.is_active ? 'Activo' : 'Inactivo'">
+                    </app-cerca-status-badge>
+                </ng-template>
+
+                <ng-template #actionEdit>
+                    <a [routerLink]="[plan.id, 'edit']" nz-tooltip nzTooltipTitle="Editar Plan">
+                        <span nz-icon nzType="edit"></span>
+                    </a>
+                </ng-template>
+
+                <ng-template #actionDelete>
+                    <span nz-icon nzType="delete" class="delete-icon" nz-popconfirm
+                        nzPopconfirmTitle="¿Estás seguro de eliminar este plan?" nzOkText="Eliminar"
+                        nzCancelText="Cancelar" nzOkDanger="true" (nzOnConfirm)="deletePlan(plan.id)"></span>
+                </ng-template>
+            </nz-card>
+        </div>
+        }
+    </div>
+    }
+</div>

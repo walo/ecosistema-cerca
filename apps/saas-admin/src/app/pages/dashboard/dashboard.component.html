@@ -1,0 +1,128 @@
+<app-section-header titlePrefix="Panel de" titleAccent="Control"
+    subtitle="Inteligencia de negocios y monitoreo global Cerca.">
+
+    <div extraActions>
+        <nz-space>
+            <button *nzSpaceItem nz-button nzType="default" class="premium-button secondary">
+                <span nz-icon nzType="download"></span>
+                Reporte Ejecutivo
+            </button>
+            <button *nzSpaceItem nz-button nzType="primary" class="premium-button">
+                <span nz-icon nzType="sync"></span>
+                Refrescar Datos
+            </button>
+        </nz-space>
+    </div>
+</app-section-header>
+
+<div class="dashboard-container">
+    @if (loading()) {
+    <div nz-row [nzGutter]="[24, 24]" class="metrics-row">
+        @for (i of [1,2,3,4]; track i) {
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+            <app-cerca-card>
+                <div style="padding: 24px;">
+                    <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 2 }"></nz-skeleton>
+                </div>
+            </app-cerca-card>
+        </div>
+        }
+    </div>
+    } @else {
+    <div nz-row [nzGutter]="[24, 24]" class="metrics-row">
+        <!-- MRR -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+            <app-cerca-card class="metric-card-wrapper">
+                <div class="metric-content">
+                    <div class="metric-icon">
+                        <span nz-icon nzType="line-chart"></span>
+                    </div>
+                    <div class="metric-label">Ingresos Recurrentes (MRR)</div>
+                    <div class="metric-value">{{ stats().mrr | currency:'USD':'symbol':'1.0-0' }}</div>
+                    <div class="metric-trend up">
+                        <span nz-icon nzType="arrow-up"></span> 12.5%
+                    </div>
+                </div>
+            </app-cerca-card>
+        </div>
+
+        <!-- Clientes -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+            <app-cerca-card class="metric-card-wrapper">
+                <div class="metric-content">
+                    <div class="metric-icon">
+                        <span nz-icon nzType="team"></span>
+                    </div>
+                    <div class="metric-label">Entidades Activas</div>
+                    <div class="metric-value">{{ stats().clients }}</div>
+                    <div class="metric-trend up">
+                        <span nz-icon nzType="user-add"></span> +3 este mes
+                    </div>
+                </div>
+            </app-cerca-card>
+        </div>
+
+        <!-- Facturas Pendientes -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+            <app-cerca-card class="metric-card-wrapper">
+                <div class="metric-content">
+                    <div class="metric-icon"
+                        [style.color]="stats().pendingInvoices > 0 ? 'var(--color-alert)' : 'var(--color-success)'">
+                        <span nz-icon [nzType]="stats().pendingInvoices > 0 ? 'warning' : 'check-circle'"></span>
+                    </div>
+                    <div class="metric-label">Cartera Pendiente</div>
+                    <div class="metric-value">{{ stats().pendingInvoices }}</div>
+                    <div class="metric-trend" [class.down]="stats().pendingInvoices > 0">
+                        {{ stats().pendingInvoices > 0 ? 'Acción requerida' : 'Al día' }}
+                    </div>
+                </div>
+            </app-cerca-card>
+        </div>
+
+        <!-- System Health -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+            <app-cerca-card class="metric-card-wrapper">
+                <div class="metric-content">
+                    <div class="metric-icon">
+                        <span nz-icon nzType="api"></span>
+                    </div>
+                    <div class="metric-label">Salud del Sistema</div>
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-trend up">
+                        <app-cerca-status-badge status="active" label="Online"></app-cerca-status-badge>
+                    </div>
+                </div>
+            </app-cerca-card>
+        </div>
+    </div>
+
+    <div nz-row [nzGutter]="[24, 24]">
+        <div nz-col [nzSpan]="24" [nzLg]="16">
+            <app-cerca-card>
+                <div style="padding: 24px;">
+                    <h3 nz-typography style="margin-bottom: 24px;">Análisis de Crecimiento MRR</h3>
+                    <div
+                        style="height: 300px; display: flex; align-items: center; justify-content: center; background: var(--color-primary-light); border-radius: 8px; border: 1px dashed var(--color-border);">
+                        <span nz-typography nzType="secondary">Visualización de Datos Corporativos (Próximamente
+                            Analytics
+                            Engine)</span>
+                    </div>
+                </div>
+            </app-cerca-card>
+        </div>
+        <div nz-col [nzSpan]="24" [nzLg]="8">
+            <app-cerca-card>
+                <div style="padding: 24px;">
+                    <h3 nz-typography style="margin-bottom: 24px;">Protocolos de Seguridad</h3>
+                    <nz-timeline>
+                        <nz-timeline-item nzColor="green">Aislamiento RLS validado</nz-timeline-item>
+                        <nz-timeline-item nzColor="green">Backup incremental exitoso</nz-timeline-item>
+                        <nz-timeline-item nzColor="blue">Certificados SSL renovados</nz-timeline-item>
+                        <nz-timeline-item nzColor="gray">Auditoría perimetral completada</nz-timeline-item>
+                    </nz-timeline>
+                </div>
+            </app-cerca-card>
+        </div>
+    </div>
+    }
+</div>

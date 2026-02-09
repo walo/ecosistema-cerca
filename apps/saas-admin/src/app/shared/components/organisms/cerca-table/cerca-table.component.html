@@ -1,0 +1,36 @@
+<nz-table #basicTable [nzData]="data" [nzLoading]="loading" [nzTotal]="pagination.total"
+    [nzPageIndex]="pagination.pageIndex" [nzPageSize]="pagination.pageSize" [nzScroll]="scrollConfig"
+    (nzPageIndexChange)="onPageChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowSizeChanger]="true">
+    <thead>
+        <tr>
+            <th *ngFor="let col of columns">
+                <div class="header-cell">
+                    <span>{{ col.label }}</span>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td *ngFor="let col of columns">
+                <!-- Text Type -->
+                <span *ngIf="col.type === 'text'">{{ data[col.key] }}</span>
+
+                <!-- Status Type -->
+                <app-cerca-status-badge *ngIf="col.type === 'status'"
+                    [status]="col.statusMap ? col.statusMap[data[col.key]] : data[col.key]"
+                    [label]="col.statusMap ? null : data[col.key]">
+                </app-cerca-status-badge>
+
+                <!-- Template Type -->
+                <ng-container *ngIf="col.type === 'template' && col.templateRef">
+                    <ng-container *ngTemplateOutlet="col.templateRef; context: { $implicit: data }"></ng-container>
+                </ng-container>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+</ng-template>

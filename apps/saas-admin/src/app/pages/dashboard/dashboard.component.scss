@@ -1,0 +1,66 @@
+.site-page-header {
+    border: 1px solid rgb(235, 237, 240);
+    margin-bottom: 32px;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.dashboard-container {
+    padding: 0 4px;
+}
+
+.metrics-row {
+    margin-bottom: 32px;
+}
+
+/* Internal content styles for cards */
+.metric-content {
+    padding: 24px;
+    height: 100%;
+}
+
+.metric-icon {
+    font-size: 24px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-cerca-sm);
+    margin-bottom: 16px;
+    background: #F1F5F9;
+    color: #5BC2E7;
+}
+
+.metric-label {
+    color: var(--color-secondary-light);
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.2;
+}
+
+.metric-trend {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &.up {
+        color: var(--color-success);
+    }
+
+    &.down {
+        color: var(--color-alert);
+    }
+}

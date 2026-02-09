@@ -1,0 +1,142 @@
+/* CSS variables from styles.css are available globally */
+
+:host {
+    display: block;
+    background: radial-gradient(circle at 10% 10%, rgba(var(--primary-accent-rgb), 0.02) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(var(--primary-accent-rgb), 0.02) 0%, transparent 40%);
+    min-height: 100vh;
+}
+
+.clients-container {
+    padding: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Page header styles removed - using SectionHeaderComponent */
+/* Premium card styles removed - using CercaCardComponent */
+/* Status badge styles removed - using CercaStatusBadgeComponent */
+
+
+
+.client-table {
+    ::ng-deep {
+        /* ... table styles kept ... */
+
+        .filter-row {
+            th {
+                background: #f8fafc;
+                padding: 0.75rem 1rem;
+            }
+
+            input,
+            nz-select {
+                width: 100%;
+                border-radius: 8px;
+                font-size: 0.85rem;
+
+                &.ant-input,
+                &.ant-select-selector {
+                    border-color: transparent;
+                    background: white;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+                    &:hover,
+                    &:focus {
+                        border-color: var(--primary-accent);
+                    }
+                }
+            }
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+
+            button {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                background: white;
+
+                &:hover {
+                    transform: scale(1.1);
+                    box-shadow: var(--shadow-premium);
+                }
+
+                &.edit {
+                    color: var(--primary-accent);
+
+                    &:hover {
+                        background: var(--primary-accent);
+                        color: white;
+                    }
+                }
+
+                &.delete {
+                    color: #ef4444;
+
+                    &:hover {
+                        background: #ef4444;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        .modal-content {
+            padding: 2.5rem;
+
+            .form-group {
+                margin-bottom: 2rem;
+
+                label {
+                    display: block;
+                    font-size: 0.75rem;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    color: #94a3b8;
+                    margin-bottom: 0.75rem;
+                    margin-left: 0.25rem;
+                }
+
+                input,
+                select {
+                    border-radius: 16px;
+                    height: 56px;
+                    padding: 0 1.5rem;
+                    font-weight: 600;
+                    border: 1px solid rgba(0, 0, 0, 0.08);
+                    background: #f8fafc;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+                    &:focus {
+                        background: white;
+                        border-color: var(--primary-accent);
+                        box-shadow: 0 0 0 4px rgba(var(--primary-accent-rgb), 0.1);
+                    }
+                }
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+}

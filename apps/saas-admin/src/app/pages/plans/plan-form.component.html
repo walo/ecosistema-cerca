@@ -1,0 +1,201 @@
+<nz-page-header class="site-page-header" (nzBack)="router.navigate(['/plans'])"
+    [nzTitle]="isEdit ? 'Configurar Plan' : 'Definir Nuevo Plan'"
+    nzSubtitle="Establece los límites y capacidades de monetización del plan.">
+</nz-page-header>
+
+<div class="form-container">
+    <form nz-form [formGroup]="planForm" (ngSubmit)="save()" nzLayout="vertical">
+        <div nz-row [nzGutter]="32">
+            <!-- Main Content -->
+            <div nz-col [nzXs]="24" [nzLg]="16">
+                <nz-card nzTitle="Información Comercial" class="form-card">
+                    <div nz-row [nzGutter]="16">
+                        <div nz-col [nzSpan]="12">
+                            <nz-form-item>
+                                <nz-form-label nzRequired>Nombre Comercial</nz-form-label>
+                                <nz-form-control nzErrorTip="Por favor ingresa el nombre del plan">
+                                    <input nz-input formControlName="name" placeholder="Ej: Plan Conjunto Élite" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col [nzSpan]="12">
+                            <nz-form-item>
+                                <nz-form-label nzRequired>Código Identificador</nz-form-label>
+                                <nz-form-control
+                                    nzErrorTip="Código inválido (solo MAYÚSCULAS, números y guiones bajos)">
+                                    <input nz-input formControlName="code" placeholder="EJ: PLAN_ELITE_01"
+                                        style="text-transform: uppercase" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+
+                    <nz-form-item>
+                        <nz-form-label>Descripción de la Oferta</nz-form-label>
+                        <nz-form-control>
+                            <textarea nz-input formControlName="description" [nzAutosize]="{ minRows: 2, maxRows: 4 }"
+                                placeholder="Describe los beneficios principales..."></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label nzRequired>Tarifa Base (COP)</nz-form-label>
+                        <nz-form-control nzErrorTip="Ingresa un precio válido">
+                            <nz-input-number formControlName="price" [nzMin]="0" [nzStep]="1000"
+                                [nzFormatter]="formatterDollar" [nzParser]="parserDollar"
+                                style="width: 100%"></nz-input-number>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-card>
+
+                <nz-card nzTitle="Límites Operativos" class="form-card" style="margin-top: 24px">
+                    <div nz-row [nzGutter]="16">
+                        <div nz-col [nzSpan]="8">
+                            <nz-form-item>
+                                <nz-form-label>Usuarios Max.</nz-form-label>
+                                <nz-form-control>
+                                    <nz-input-number formControlName="max_users" [nzMin]="0"
+                                        nzPlaceHolder="0 = ilimitado" style="width: 100%"></nz-input-number>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col [nzSpan]="8">
+                            <nz-form-item>
+                                <nz-form-label>Sedes Max.</nz-form-label>
+                                <nz-form-control>
+                                    <nz-input-number formControlName="max_branches" [nzMin]="1"
+                                        style="width: 100%"></nz-input-number>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col [nzSpan]="8">
+                            <nz-form-item>
+                                <nz-form-label>Citas / Mes</nz-form-label>
+                                <nz-form-control>
+                                    <nz-input-number formControlName="max_appointments_per_month" [nzMin]="0"
+                                        style="width: 100%"></nz-input-number>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </nz-card>
+
+                <nz-card [nzTitle]="featuresTitle" class="form-card" style="margin-top: 24px">
+                    <ng-template #featuresTitle>
+                        <div class="card-header-flex">
+                            <span>Características Habilitadas</span>
+                            <button nz-button nzType="dashed" nzSize="small" (click)="addFeature()" type="button">
+                                <span nz-icon nzType="plus"></span> Agregar Feature
+                            </button>
+                        </div>
+                    </ng-template>
+
+                    <div formArrayName="features">
+                        @for (feature of features.controls; track $index) {
+                        <div [formGroupName]="$index" class="feature-row">
+                            <div nz-row [nzGutter]="8">
+                                <div nz-col [nzSpan]="11">
+                                    <nz-form-item>
+                                        <nz-form-control nzErrorTip="Requerido">
+                                            <nz-select formControlName="key" nzPlaceHolder="Selecciona característica"
+                                                nzShowSearch>
+                                                <nz-option *ngFor="let def of featuresList()" [nzLabel]="def.label"
+                                                    [nzValue]="def.key"></nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div nz-col [nzSpan]="11">
+                                    <nz-form-item>
+                                        <nz-form-control nzErrorTip="Requerido">
+                                            <ng-container [ngSwitch]="getFeatureType($index)">
+                                                <nz-switch *ngSwitchCase="'boolean'"
+                                                    formControlName="value"></nz-switch>
+
+                                                <nz-input-number *ngSwitchCase="'number'" formControlName="value"
+                                                    style="width: 100%"></nz-input-number>
+
+                                                <input *ngSwitchDefault nz-input formControlName="value"
+                                                    placeholder="Valor" />
+                                            </ng-container>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div nz-col [nzSpan]="2" class="text-right">
+                                    <button nz-button nzType="text" nzDanger (click)="removeFeature($index)"
+                                        type="button">
+                                        <span nz-icon nzType="delete"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        @if (features.length === 0) {
+                        <div class="empty-features">
+                            <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+                            <p>No hay características específicas definidas.</p>
+                        </div>
+                        }
+                    </div>
+                </nz-card>
+            </div>
+
+            <!-- Sidebar -->
+            <div nz-col [nzXs]="24" [nzLg]="8">
+                <nz-card nzTitle="Configuración de Venta" class="form-card">
+                    <nz-form-item>
+                        <nz-form-label>Estado del Plan</nz-form-label>
+                        <nz-form-control>
+                            <div class="switch-container">
+                                <nz-switch formControlName="is_active"></nz-switch>
+                                <span class="switch-label">{{ planForm.get('is_active')?.value ? 'Publicado' :
+                                    'Borrador' }}</span>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-divider></nz-divider>
+
+                    <nz-form-item>
+                        <nz-form-label>Ciclo de Facturación</nz-form-label>
+                        <nz-form-control>
+                            <nz-select formControlName="billing_cycle">
+                                <nz-option [nzValue]="1" nzLabel="Mensual"></nz-option>
+                                <nz-option [nzValue]="12" nzLabel="Anual"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label>Días de Prueba (Trial)</nz-form-label>
+                        <nz-form-control>
+                            <nz-input-number formControlName="trial_days" [nzMin]="0"
+                                style="width: 100%"></nz-input-number>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-card>
+
+                <div class="tip-box">
+                    <h4 class="tip-title">
+                        <span nz-icon nzType="bulb" nzTheme="twotone"></span>
+                        Tip de Estrategia
+                    </h4>
+                    <p class="tip-content">
+                        Los planes anuales con descuentos del 15% suelen mejorar la retención de los conjuntos
+                        residenciales a largo plazo.
+                    </p>
+                </div>
+
+                <div class="form-actions">
+                    <button nz-button nzType="primary" nzBlock [nzLoading]="loading()" [disabled]="planForm.invalid">
+                        {{ isEdit ? 'Guardar Cambios' : 'Crear Plan' }}
+                    </button>
+                    <button nz-button nzType="default" nzBlock (click)="router.navigate(['/plans'])" type="button"
+                        style="margin-top: 12px">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

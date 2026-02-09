@@ -1,0 +1,102 @@
+<div class="clients-container">
+    <!-- Decoration Halo -->
+    <div
+        class="absolute -top-24 -left-24 w-[500px] h-[500px] bg-primary-accent/5 blur-[160px] rounded-full pointer-events-none">
+    </div>
+
+    <app-section-header title="Gestión de Clientes"
+        subtitle="Administración centralizada de entidades del ecosistema Cerca." actionLabel="Nuevo Registro"
+        actionIcon="plus" (actionClicked)="openModal()">
+
+    </app-section-header>
+
+    <!-- Cerca Table Implementation -->
+    <app-cerca-card>
+        <app-cerca-table [data]="filteredClients()" [columns]="tableColumns" [loading]="loading()"
+            (filterChange)="onTableFilterChange($event)">
+
+            <!-- Template for Contact Info -->
+            <ng-template #contactTemplate let-client>
+                <div class="flex flex-col">
+                    <span class="font-medium text-gray-900">{{ client.contact_name }}</span>
+                    <span class="text-xs text-gray-500">{{ client.contact_email }}</span>
+                </div>
+            </ng-template>
+
+        </app-cerca-table>
+    </app-cerca-card>
+
+    <footer class="mt-12 flex justify-between items-center px-4">
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em] opacity-60">
+            Estatísticas de Red: <span class="text-slate-900 ml-2">{{ filteredClients().length }} / {{ clients().length
+                }} Entidades</span>
+        </div>
+    </footer>
+</div>
+
+<!-- Modal Form -->
+<nz-modal [(nzVisible)]="showVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="closeModal()" [nzWidth]="640" nzCentered class="premium-modal">
+    <ng-template #modalTitle>
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary-accent/10 rounded-xl flex items-center justify-center text-primary-accent">
+                <span nz-icon [nzType]="isEditing() ? 'edit' : 'plus-circle'"></span>
+            </div>
+            <div>
+                <h3 class="m-0 text-xl font-black italic">{{ isEditing() ? 'Actualizar' : 'Provisionar' }} <span
+                        class="text-primary-accent">Entidad</span></h3>
+                <p class="m-0 text-xs text-slate-400 font-medium tracking-wide">Configuración maestra del ecosistema
+                    Cerca.</p>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #modalContent>
+        <form [formGroup]="clientForm" class="modal-content">
+            <div class="form-group">
+                <label>Razón Social o Conjunto PH</label>
+                <input nz-input formControlName="name" placeholder="Ej: PH Torres del Bosque Master" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div class="form-group">
+                    <label>Representante Master</label>
+                    <input nz-input formControlName="contact_name" placeholder="Nombre Completo" />
+                </div>
+                <div class="form-group">
+                    <label>Teléfono de Contacto</label>
+                    <input nz-input formControlName="contact_phone" placeholder="+57 300 000 0000" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email de Infraestructura</label>
+                <input nz-input formControlName="contact_email" placeholder="admin@ph-cerca.com" />
+            </div>
+
+            <div class="form-group">
+                <label>Estado de Sincronización</label>
+                <nz-select formControlName="status_id" nzSize="large" class="w-full">
+                    <nz-option [nzValue]="7" nzLabel="Producción Activa"></nz-option>
+                    <nz-option [nzValue]="10" nzLabel="Periodo de Prueba"></nz-option>
+                    <nz-option [nzValue]="9" nzLabel="Suspendido"></nz-option>
+                    <nz-option [nzValue]="8" nzLabel="Retirado / Decomisionado"></nz-option>
+                </nz-select>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <div class="flex gap-4 p-4">
+            <button nz-button nzType="default" (click)="closeModal()"
+                class="flex-1 h-12 rounded-xl font-bold uppercase tracking-widest text-[10px]">
+                Descartar
+            </button>
+            <button nz-button nzType="primary" [nzLoading]="submitting()" (click)="saveClient()"
+                [disabled]="clientForm.invalid"
+                class="flex-2 h-12 rounded-xl font-bold uppercase tracking-widest text-[10px]">
+                {{ isEditing() ? 'Actualizar Infraestructura' : 'Provisionar Entidad' }}
+            </button>
+        </div>
+    </ng-template>
+</nz-modal>

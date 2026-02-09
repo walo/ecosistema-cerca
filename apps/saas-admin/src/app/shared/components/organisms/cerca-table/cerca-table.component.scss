@@ -1,0 +1,52 @@
+:host {
+    display: block;
+}
+
+.header-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    span {
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        font-size: 0.875rem;
+    }
+}
+
+.filter-input {
+    width: 100%;
+
+    nz-input-group,
+    nz-select {
+        width: 100%;
+    }
+
+    input,
+    nz-select {
+        font-size: 0.8rem;
+    }
+}
+
+.actions-cell {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: flex-end;
+    /* Or whatever generic alignment */
+}
+
+/* Override NgZorro table styles for "Enterprise Elegant" look */
+:host ::ng-deep .ant-table-thead>tr>th {
+    background: #f8fafc;
+    /* Slate 50 */
+    border-bottom: 1px solid #e2e8f0;
+}
+
+:host ::ng-deep .ant-table-tbody>tr>td {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 1rem 1rem;
+}
+
+:host ::ng-deep .ant-table-tbody>tr:hover>td {
+    background: #f8fafc;
+}

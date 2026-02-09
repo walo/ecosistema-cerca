@@ -1,0 +1,104 @@
+/* CSS variables from styles.css are available globally */
+
+:host {
+    display: block;
+    background: radial-gradient(circle at 5% 5%, rgba(var(--primary-accent-rgb), 0.03) 0%, transparent 35%),
+        radial-gradient(circle at 95% 95%, rgba(var(--primary-accent-rgb), 0.03) 0%, transparent 35%);
+    min-height: 100vh;
+}
+
+.audit-container {
+    padding: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* CSS variables from styles.css are available globally */
+
+:host {
+    display: block;
+    background: radial-gradient(circle at 5% 5%, rgba(var(--primary-accent-rgb), 0.03) 0%, transparent 35%),
+        radial-gradient(circle at 95% 95%, rgba(var(--primary-accent-rgb), 0.03) 0%, transparent 35%);
+    min-height: 100vh;
+}
+
+.audit-container {
+    padding: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Header and Card styles moved to Atomic Components */
+
+.audit-table {
+    ::ng-deep {
+        .ant-table {
+            background: transparent;
+        }
+
+        .ant-table-thead>tr>th {
+            background: rgba(var(--primary-accent-rgb), 0.03);
+            color: #334155;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.03);
+            padding: 1.75rem;
+        }
+
+        .ant-table-tbody>tr>td {
+            padding: 2rem 1.75rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .ant-table-tbody>tr:hover>td {
+            background: rgba(255, 255, 255, 0.9) !important;
+        }
+    }
+}
+
+.timestamp-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .date {
+        font-weight: 900;
+        color: #0f172a;
+        font-size: 0.95rem;
+        letter-spacing: -0.02em;
+        font-style: italic;
+        text-transform: uppercase;
+    }
+
+    .time {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: #94a3b8;
+        letter-spacing: 0.1em;
+    }
+}
+
+.notes-text {
+    color: #475569;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

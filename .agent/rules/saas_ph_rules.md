@@ -7,7 +7,10 @@ trigger: always_on
 ## Arquitectura Mandatoria
 - **Multi-tenancy:** Todo desarrollo debe incluir `tenant_id` y respetar el aislamiento por RLS.
 - **Backend:** Supabase (PostgreSQL) + Edge Functions (Deno).
-- **Frontend Admin:** Angular 17+ (Signals, Standalone, Deferrable Views).
+- **Frontend Admin:** Angular 17+ (Signals, Standalone, Deferrable Views). Estructura mandatoria de archivos separados: `.ts`, `.html` y `.scss` por componente.
+- **Metodología UI:** Todo desarrollo en Angular **DEBE** implementar **Atomic Design**.
+    - Utilizar componentes de la librería `shared/components/atoms`, `molecules` y `organisms`.
+    - Prohibido duplicar estilos o estructuras que ya existan como átomos/moléculas.
 - **App Residente:** Flutter (Riverpod/Bloc, Wompi SDK).
 
 ## Flujo de Trabajo entre Expertos

@@ -8,9 +8,14 @@ import { environment } from '../../../environments/environment';
 })
 export class SupabaseService {
     private supabase: SupabaseClient;
+    private accionaSupabase: SupabaseClient;
 
     constructor() {
         this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+        this.accionaSupabase = createClient(
+            (environment as any).accionaSupabaseUrl,
+            (environment as any).accionaSupabaseKey
+        );
     }
 
     get client() {
@@ -18,10 +23,7 @@ export class SupabaseService {
     }
 
     /**
-     * Invoca una Edge Function de Supabase
-     * @param functionName Nombre de la función
-     * @param body Cuerpo de la petición (JSON)
-     * @param options Opciones adicionales (headers, etc)
+     * Invoca una Edge Function en el proyecto principal (Cerca)
      */
     invokeFunction(functionName: string, body: any = {}, options: { headers?: { [key: string]: string } } = {}): Observable<any> {
         return from(this.supabase.functions.invoke(functionName, {
@@ -29,4 +31,15 @@ export class SupabaseService {
             headers: options.headers
         }));
     }
+
+    /**
+     * Invoca una Edge Function en el proyecto de suscripciones (Acciona)
+     */
+    invokeAccionaFunction(functionName: string, body: any = {}, options: { headers?: { [key: string]: string } } = {}): Observable<any> {
+        return from(this.accionaSupabase.functions.invoke(functionName, {
+            body,
+            headers: options.headers
+        }));
+    }
 }
+

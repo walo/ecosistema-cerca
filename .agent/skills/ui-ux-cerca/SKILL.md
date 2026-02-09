@@ -1,6 +1,6 @@
 ---
 name: ui-ux-cerca
-description: Especialista en diseño de interfaces modernas, accesibilidad y consistencia visual basada en el manual de marca de Cerca. Utilízalo para crear componentes, diseñar pantallas y mejorar la UX.
+description: Especialista en diseño de interfaces modernas con Angular (ng-zorro-antd). Utilízalo para crear componentes premium, diseñar pantallas accesibles y mejorar la experiencia de usuario siguiendo el manual de marca de Cerca.
 ---
 
 # Habilidad: UI-UX-Cerca
@@ -11,10 +11,11 @@ Esta habilidad garantiza que todas las interfaces de usuario del ecosistema Cerc
 Proveer una experiencia de usuario (UX) fluida y una interfaz (UI) moderna, centrada en la accesibilidad y la consistencia visual.
 
 ## Disparadores Semánticos
-- "Crea un componente UI"
-- "Diseña la pantalla de..."
-- "Estiliza esta vista"
-- "Mejora la experiencia de usuario en..."
+- "Crea un componente UI con Ng-Zorro"
+- "Diseña la pantalla de... usando Ant Design"
+- "Estiliza esta vista con Zorro"
+- "Mejora la experiencia de usuario con componentes de Ant"
+- "Revisar documentación de Ng-Zorro"
 
 ## Instrucciones y Reglas de Diseño
 
@@ -25,10 +26,12 @@ Es OBLIGATORIO utilizar los siguientes colores para mantener la consistencia de 
 - **Éxito (Confirmaciones/Check)**: `Emerald-500`
 - **Alertas / Estado de Mora**: `Rose-500`
 
-### 2. Implementación Técnica (Tailwind CSS)
-- **TECNOLOGÍA**: Prohibido el uso de CSS en línea (inline-styles) o archivos `.css` externos.
-- **CLASES**: Utilizar exclusivamente las clases de utilidad de **Tailwind CSS**.
-- **ESTRUCTURA**: Mantener el código limpio y semántico.
+### 2. Implementación Técnica (Frameworks y Estilos)
+- **COMPONENTES**: Utilizar **ng-zorro-antd** para componentes estructurales (formularios, tablas, layouts, feedbacks).
+- **ESTILOS**: Utilizar **SCSS / Vanilla CSS** para el layout (grid/flex), espaciado, tipografía y personalización de componentes.
+- **CLASES**: No utilizar frameworks de utilidades. Definir clases semánticas en archivos `.scss`.
+- **DOCUMENTACIÓN OFICIAL**: [NG-ZORRO Components](https://ng.ant.design/components/overview/en) - Consultar SIEMPRE para asegurar el uso correcto de directivas y propiedades.
+- **ESTRUCTURA**: Separación obligatoria de archivos: `.ts`, `.html` y `.scss` por componente.
 
 ### 3. Responsividad y Accesibilidad
 - **MOBILE-FIRST**: Diseñar siempre pensando primero en dispositivos móviles y luego escalar a pantallas más grandes.
@@ -41,6 +44,8 @@ Es OBLIGATORIO utilizar los siguientes colores para mantener la consistencia de 
 - **CLARIDAD**: Mostrar mensajes de error o éxito claros y contextuales.
 
 ## Restricciones
-- No utilizar frameworks de UI que no permitan personalización total con Tailwind.
-- No ignorar la adaptabilidad a diferentes tamaños de pantalla.
-- No crear interfaces estáticas sin feedback visual ante interacciones.
+- No utilizar estilos en línea (inline-styles).
+- No utilizar frameworks de utilidades CSS (como Tailwind).
+- No ignorar la adaptabilidad a diferentes tamaños de pantalla (Mobile-First).
+- No crear componentes sin feedback visual ante interacciones.
+- No duplicar lógica de componentes de Ant Design con CSS personalizado innecesario.

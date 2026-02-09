@@ -1,0 +1,73 @@
+<nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="280px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+        [nzTrigger]="null" [nzCollapsedWidth]="80">
+        <div class="sidebar-logo">
+            <a href="/dashboard" class="logo-container">
+                <div class="logo-icon">
+                    <span nz-icon nzType="thunderbolt" nzTheme="fill"></span>
+                </div>
+                @if (!isCollapsed) {
+                <h1 class="logo-text">ACCIONA</h1>
+                }
+            </a>
+        </div>
+
+        <ul nz-menu nzTheme="dark" nzMode="inline" class="nav-menu">
+            @for (item of menuItems; track item.path) {
+            <li nz-menu-item [nzSelected]="router.url.includes(item.path)" [routerLink]="item.path">
+                <span nz-icon [nzType]="item.icon"></span>
+                <span>{{ item.label }}</span>
+            </li>
+            }
+        </ul>
+    </nz-sider>
+
+    <nz-layout>
+        <nz-header>
+            <div class="app-header">
+                <div class="header-left">
+                    <span class="header-trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                        (click)="isCollapsed = !isCollapsed"></span>
+
+                    <nz-input-group [nzPrefix]="suffixIconSearch" class="header-search">
+                        <input type="text" nz-input placeholder="Search or type command..." />
+                    </nz-input-group>
+                    <ng-template #suffixIconSearch>
+                        <span nz-icon nzType="search"></span>
+                    </ng-template>
+                </div>
+
+                <div class="header-right">
+                    <nz-badge [nzCount]="5" class="header-action">
+                        <span nz-icon nzType="bell" class="action-icon"></span>
+                    </nz-badge>
+
+                    <div class="header-action" nz-dropdown [nzDropdownMenu]="userMenu">
+                        <nz-avatar nzSize="small" nzIcon="user"
+                            [nzSrc]="'https://ui-avatars.com/api/?name=' + (auth.currentUser()?.email || 'Admin') + '&background=020617&color=fff'"></nz-avatar>
+                        <span class="user-name-display">{{ auth.currentUser()?.email?.split('@')?.[0] || 'Musharof'
+                            }}</span>
+                        <span nz-icon nzType="down" class="down-icon"></span>
+                    </div>
+                </div>
+            </div>
+        </nz-header>
+
+        <nz-content>
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>
+
+<nz-dropdown-menu #userMenu="nzDropdownMenu">
+    <ul nz-menu>
+        <li nz-menu-item nzDisabled>Profile Settings</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item (click)="logout()" nzDanger>
+            <span nz-icon nzType="logout"></span>
+            Sign Out
+        </li>
+    </ul>
+</nz-dropdown-menu>

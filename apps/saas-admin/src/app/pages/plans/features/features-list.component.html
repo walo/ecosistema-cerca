@@ -1,0 +1,37 @@
+<app-section-header title="Catálogo de Características"
+    subtitle="Define las funcionalidades y límites disponibles para los planes.">
+
+    <button extra-actions nz-button nzType="primary" class="btn-primary" (click)="openForm()">
+        <span nz-icon nzType="plus"></span>
+        Nueva Característica
+    </button>
+</app-section-header>
+
+<div class="container mx-auto px-6 py-6">
+    <app-cerca-card [glassEffect]="true" [noPadding]="true">
+        <app-cerca-table [data]="features()" [columns]="tableColumns" [loading]="loading()">
+        </app-cerca-table>
+
+        <ng-template #typeTemplate let-item>
+            <span class="px-2 py-1 rounded-md text-xs font-bold uppercase tracking-wider" [ngClass]="{
+                    'bg-purple-100 text-purple-700': item.data_type === 'boolean',
+                    'bg-blue-100 text-blue-700': item.data_type === 'number',
+                    'bg-slate-100 text-slate-700': item.data_type === 'text'
+                }">
+                {{ item.data_type === 'boolean' ? 'Interruptor' : (item.data_type === 'number' ? 'Numérico' : 'Texto')
+                }}
+            </span>
+        </ng-template>
+
+        <ng-template #actionsTemplate let-item>
+            <div class="flex items-center justify-end gap-2">
+                <button nz-button nzType="text" nzShape="circle" (click)="openForm(item)" title="Editar">
+                    <span nz-icon nzType="edit" class="text-slate-500 hover:text-primary"></span>
+                </button>
+                <button nz-button nzType="text" nzShape="circle" (click)="deleteFeature(item)" title="Eliminar">
+                    <span nz-icon nzType="delete" class="text-slate-400 hover:text-danger"></span>
+                </button>
+            </div>
+        </ng-template>
+    </app-cerca-card>
+</div>

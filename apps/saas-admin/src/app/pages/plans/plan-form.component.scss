@@ -1,0 +1,75 @@
+.site-page-header {
+    background: #fff;
+    border: 1px solid rgb(235, 237, 240);
+    margin-bottom: 24px;
+}
+
+.form-container {
+    padding: 0 16px 40px;
+}
+
+.form-card {
+    border-radius: 8px;
+}
+
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.feature-row {
+    padding: 12px;
+    background: #fafafa;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.empty-features {
+    text-align: center;
+    padding: 32px;
+    color: #bfbfbf;
+}
+
+.empty-features span {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.switch-label {
+    font-weight: 600;
+}
+
+.tip-box {
+    margin-top: 24px;
+    padding: 16px;
+    background: #e6f7ff;
+    border: 1px solid #91d5ff;
+    border-radius: 8px;
+}
+
+.tip-title {
+    color: #0050b3;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tip-content {
+    margin: 0;
+    font-size: 13px;
+    color: #003a8c;
+    font-style: italic;
+}
+
+.form-actions {
+    margin-top: 24px;
+}

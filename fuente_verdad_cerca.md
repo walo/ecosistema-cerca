@@ -6,6 +6,21 @@
 
 ---
 
+## 0. Identidad Visual Corporativa (Universal)
+
+Estos colores son mandatorios para todo el ecosistema Cerca (Admin, Resident App, Porter App).
+
+- **Cerca Navy (Primario):** `#002855`  
+  *Uso: Sidebars, encabezados, botones principales (Hover).*
+- **Cerca Cyan (Acento/Acción):** `#5BC2E7`  
+  *Uso: Botones de acción, enlaces, elementos destacados, gradientes.*
+- **Cerca Lime (Éxito/Estado):** `#A2D033`  
+  *Uso: Estados "Activo", validaciones exitosas, barras de progreso.*
+- **Cerca White/Slate:** `#F8FAFC` / `#FFFFFF`  
+  *Uso: Fondos de superficie y fondo general.*
+
+---
+
 ## 1. Definición y Visión del Proyecto
 
 Cerca es una plataforma SaaS (Software as a Service) multi-tenant diseñada para la gestión integral de comunidades residenciales. Su objetivo es centralizar la comunicación, seguridad, finanzas y gobernanza, eliminando la fragmentación tecnológica actual en la Propiedad Horizontal.
@@ -31,6 +46,15 @@ Cerca es una plataforma SaaS (Software as a Service) multi-tenant diseñada para
 - **Aislamiento Multi-tenant:** Los datos de un conjunto son invisibles para otros mediante RLS.
 - **Alta Disponibilidad:** Redundancia de comunicación vía SIM Card en portería.
 - **Escalabilidad:** Arquitectura basada en microservicios (Edge Functions) y eventos en tiempo real.
+
+### 2.3 Mapeo App ↔ Proyecto Supabase
+
+| App | Proyecto Supabase | Organización | Responsabilidad |
+|-----|-------------------|--------------|-----------------|
+| **saas-admin** | suscripciones | Acciona | Clientes, planes, facturación, billing |
+| **admin-web** | Ecosistema-Cerca | cerca | Conjuntos, unidades, residentes, citofonía, tesorería |
+
+admin-web además invoca Edge Functions en **suscripciones** (Acciona) para validación de suscripciones (`validate-subscription` con `x-client-id`).
 
 ---
 
