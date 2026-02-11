@@ -1,0 +1,54 @@
+<qua-container-action [config]="configContainer" (onExport)="onExport($event)" (onTemplate)="onTemplate()"
+  (onImport)="onImport()" (onAdd)="openModalDetalle(0)" (onClear)="onReset()" [disableAdd]="disableAdd">
+  <nz-table class="table-primary" nzBordered nzTableLayout="fixed" [nzScroll]="{ x: '500px' }" nzShowSizeChanger="true"
+    [nzData]="listado" [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="totalRegistros"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageNumber" (nzQueryParams)="onQueryParamsChange($event)"
+    [nzPageSizeOptions]="[10, 20, 50, 100]" [nzFooter]="getTotal()">
+    <thead>
+      <tr>
+        <th nzAlign="center" *ngFor="let column of visibleColumns" [nzWidth]="column.col_width">
+          <strong>
+            {{ column.col_name }}
+            <span *ngIf="column.is_mandatory">*</span>
+          </strong>
+          <nz-filter-trigger *ngIf="column.is_filter_parameter" [(nzVisible)]="column.is_visible"
+            [nzActive]="listado.length > 0" [nzDropdownMenu]="menuSearch">
+            <nz-divider nzType="vertical"></nz-divider>
+            <span nz-icon nzType="search" (click)="setFieldFilter(column.col_ref)"></span>
+          </nz-filter-trigger>
+        </th>
+        <th nzWidth="110px" nzRight nzJustify="space-between">
+          {{ pantalla.scr_actions_label }}
+        </th>
+      </tr>
+    </thead>
+    <tbody class="ant-table-tbody">
+      <tr *ngFor="let data of listado">
+        <ng-container *ngIf="!editCache[data.id].edit">
+          <td *ngFor="let column of visibleColumns">
+            {{ getCellValue(data, column) }}
+          </td>
+          <td nzAlign="center" nzRight>
+            <button nz-button nzType="default" (click)="openModalDetalle(data.id)" [id]="'editButton-' + data.id">
+              <span nz-icon nzType="edit"></span>
+            </button>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </nz-table>
+</qua-container-action>
+<nz-dropdown-menu #menuSearch="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="base-search-box">
+      <input type="text" nz-input [placeholder]="pantalla.scr_search_button" [(ngModel)]="payload[fieldFilter]" />
+      <button nz-button nzSize="small" nzType="primary" (click)="consultarFiltros()" class="base-search-button"
+        [disabled]="payload[fieldFilter]?.length < 1">
+        {{ pantalla.scr_search_button }}
+      </button>
+      <button nz-button nzSize="small" (click)="resetFilter()" [disabled]="payload[fieldFilter]?.length < 1">
+        {{ pantalla.scr_clear_button }}
+      </button>
+    </div>
+  </div>
+</nz-dropdown-menu>

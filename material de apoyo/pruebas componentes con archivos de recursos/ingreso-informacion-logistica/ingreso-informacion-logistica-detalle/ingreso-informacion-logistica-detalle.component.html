@@ -1,0 +1,473 @@
+<form nz-form nzLayout="vertical" [formGroup]="form" [nzMarkFormOnLoad]="form" nzNextFocusReactiveForm
+  [targetInputIndex]="focusIndex" [formElementRef]="inputsFormElementRef" #inputsForm>
+  <nz-card nzTitle="Datos del Cliente" class="shadow-md rounded-lg">
+
+    <nz-descriptions nzBordered [nzColumn]="{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }" nzSize="small">
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![0].label_name }}">
+        <ng-container *ngIf="infoLogistica?.cli_codigo; else editableCliente" nzFor="cli_codigo">
+          {{ form.get('cli_codigo')?.value }}
+        </ng-container>
+        <ng-template #editableCliente>
+          <nz-space nzAlign="start">
+            <modal-generic nzNoSpaces formControlName="cli_codigo" [viewName]="resource.scr_modals![0].viewName"
+              [title]="resource.scr_modals![0].title" [requerido]="true" [inputMaxLength]="8" (modalData)="
+                handleModal(
+                  $event,
+                  ['cli_codigo', 'cli_nombre'],
+                  ['codigo', 'descripcion'],
+                  0
+                )
+              "></modal-generic>
+          </nz-space>
+        </ng-template>
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![1].label_name }}" class="form-item" nzSpan="3">
+        {{ form.get('cli_nombre')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![2].label_name }}" class="form-item">
+        {{ form.get('cli_bill')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![3].label_name }}" class="form-item">
+        {{ form.get('cli_cob_nombre')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![4].label_name }}" class="form-item">
+        {{ form.get('cli_canal')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![5].label_name }}" class="form-item">
+        {{ form.get('cli_direccion1')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![6].label_name }}" class="form-item">
+        {{ form.get('cli_direccion2')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![7].label_name }}" class="form-item">
+        {{ form.get('cli_direccion3')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![8].label_name }}" class="form-item">
+        {{ form.get('cli_telefono')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![9].label_name }}" class="form-item">
+        {{ form.get('cli_fax')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![10].label_name }}" class="form-item">
+        {{ form.get('cli_id')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![11].label_name }}" class="form-item">
+        {{ form.get('cli_pais')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![12].label_name }}" class="form-item">
+        {{ form.get('est_descripcion')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![13].label_name }}" class="form-item">
+        {{ form.get('cli_postal')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![14].label_name }}" class="form-item">
+        {{ form.get('cli_ciudad')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![15].label_name }}" class="form-item">
+        {{ form.get('cli_municipio')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![16].label_name }}" class="form-item">
+        {{ form.get('mun_descripcion')?.value }}
+      </nz-descriptions-item>
+
+      <nz-descriptions-item nzTitle="{{ resource.scr_labels![17].label_name }}" class="form-item" nzSpan="4">
+        {{ form.get('cli_Barrio')?.value }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </nz-card>
+
+  <nz-card nzTitle="Datos Logística">
+    <nz-row [nzGutter]="[10, 10]">
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="sub_codigo"  [nzRequired]="isRequired('sub_codigo')">
+            {{ resource.scr_labels![18].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <modal-generic nzNoSpaces formControlName="sub_codigo" [viewName]="resource.scr_modals![1].viewName"
+              [title]="resource.scr_modals![1].title" [inputMaxLength]="8"
+              (modalData)="handleModal($event, ['sub_codigo', 'rs_descripcion_subzona'], ['codigo','descripcion'], 1)"></modal-generic>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+          <nz-form-item>
+            <nz-form-label nzFor="rs_descripcion_subzona" 
+            [nzRequired]="isRequired('rs_descripcion_subzona')">
+              {{ resource.scr_labels![19].label_name }}</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="rs_descripcion_subzona" readonly />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="cli_hora_recibido" [nzRequired]="isRequired('cli_hora_recibido')">{{ resource.scr_labels![20].label_name }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="getErrorTip('cli_hora_recibido')">
+            <input nz-input formControlName="cli_hora_recibido" placeholder="HH:mm" mask="Hh:m0:s0"
+              (input)="onInput($event)" />
+          </nz-form-control>
+
+          <!-- <nz-form-control [nzErrorTip]="getErrorTip('cli_hora_recibido')">
+              <nz-time-picker
+                formControlName="cli_hora_recibido"
+                [nzUse12Hours]="true"
+              ></nz-time-picker>
+            </nz-form-control> -->
+
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="cli_area" [nzRequired]="isRequired('cli_area')">
+            {{ resource.scr_labels![21].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <modal-generic nzNoSpaces formControlName="cli_area" [viewName]="resource.scr_modals![5].viewName"
+              [title]="resource.scr_modals![5].title" [requerido]="true" [inputMaxLength]="8"
+              (modalData)="handleModal($event, ['cli_area'], ['codigo'], 2)"></modal-generic>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="cli_transbordo" [nzRequired]="isRequired('cli_transbordo')">{{ resource.scr_labels![22].label_name }}</nz-form-label>
+          <nz-form-control>
+            <label nz-checkbox formControlName="cli_transbordo"></label>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="cli_contado" [nzRequired]="isRequired('cli_contado')">
+            {{ resource.scr_labels![23].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Seleccione"
+                formControlName="cli_contado"
+              >
+                <nz-option
+                  *ngFor="let tipoDocumento of listadoCaracteristicas"
+                  [nzLabel]="tipoDocumento.description"
+                  [nzValue]="tipoDocumento.code"
+                >
+                </nz-option>
+              </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+          <nz-form-item>
+            <nz-form-label nzFor="rc_secuencia" [nzRequired]="isRequired('rc_secuencia')">
+              {{ resource.scr_labels![24].label_name }}
+            </nz-form-label>
+            <nz-form-control>
+              <modal-generic nzNoSpaces formControlName="rc_secuencia" [viewName]="resource.scr_modals![2].viewName"
+                [title]="resource.scr_modals![2].title" [inputMaxLength]="8" (modalData)="
+                  handleModal(
+                    $event,
+                    ['rc_secuencia', 'col_descripcion'],
+                    ['codigo', 'descripcion'],
+                    3
+                  )
+                "></modal-generic>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+
+        <nz-col nzSpan="16">
+          <nz-form-item>
+            <nz-form-label nzFor="col_descripcion" [nzRequired]="isRequired('col_descripcion')">{{ resource.scr_labels![25].label_name }}</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="col_descripcion" readonly />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="cli_estrato" [nzRequired]="isRequired('cli_estrato')">{{ resource.scr_labels![26].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cli_estrato" style="width: 100%;" mask="00" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="tneg_codigo" [nzRequired]="isRequired('tneg_codigo')">
+            {{ resource.scr_labels![27].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <modal-generic nzNoSpaces formControlName="tneg_codigo" [viewName]="resource.scr_modals![4].viewName"
+              [title]="resource.scr_modals![4].title" [requerido]="true" [inputMaxLength]="8" (modalData)="
+                handleModal(
+                  $event,
+                  ['tneg_codigo', 'tneg_descripcion'],
+                  ['codigo', 'descripcion'],
+                  4
+                )
+              "></modal-generic>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="16">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('tne_descripcion')">{{ resource.scr_labels![28].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="tne_descripcion" readonly />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('cli_estado')">{{ resource.scr_labels![29].label_name }}</nz-form-label>
+          <nz-form-control>
+            <nz-select
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Seleccione"
+                formControlName="cli_estado"
+                [nzDisabled]="true"
+              >
+                <nz-option
+                  *ngFor="let estado of listadoEstados"
+                  [nzLabel]="estado.description"
+                  [nzValue]="estado.code"
+                >
+                </nz-option>
+              </nz-select>
+
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="rut_codigo_entrega" [nzRequired]="isRequired('rut_codigo_entrega')">
+            {{ resource.scr_labels![30].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <modal-generic nzNoSpaces formControlName="rut_codigo_entrega" [viewName]="resource.scr_modals![3].viewName"
+              [title]="resource.scr_modals![3].title" [requerido]="true" [inputMaxLength]="8" (modalData)="
+                handleModal(
+                  $event,
+                  ['rut_codigo_entrega', 'rute_descripcion'],
+                  ['codigo', 'descripcion'],
+                  4
+                )
+              "></modal-generic>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('rute_descripcion')">{{ resource.scr_labels![31].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="rute_descripcion" readonly />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="cli_secuencia_entrega"
+          [nzRequired]="isRequired('cli_secuencia_entrega')">{{ resource.scr_labels![32].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cli_secuencia_entrega" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="rut_codigo_visita" [nzRequired]="isRequired('rut_codigo_visita')">
+            {{ resource.scr_labels![33].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <modal-generic nzNoSpaces formControlName="rut_codigo_visita" [viewName]="resource.scr_modals![3].viewName"
+              [title]="resource.scr_modals![3].title" [requerido]="true" [inputMaxLength]="8" (modalData)="
+                handleModal(
+                  $event,
+                  ['rut_codigo_visita', 'rutv_descripcion'],
+                  ['codigo', 'descripcion'],
+                  4
+                )
+              "></modal-generic>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('rutv_descripcion')">{{ resource.scr_labels![34].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="rutv_descripcion" readonly />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('cli_secuencia_visita')">{{ resource.scr_labels![35].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cli_secuencia_visita" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('cli_restriccion_recibido')">{{ resource.scr_labels![36].label_name }}</nz-form-label>
+          <nz-form-control>
+            <label nz-checkbox formControlName="cli_restriccion_recibido"></label>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="rtv_codigo" [nzRequired]="isRequired('rtv_codigo')">
+            {{ resource.scr_labels![37].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <modal-generic nzNoSpaces formControlName="rtv_codigo" [viewName]="resource.scr_modals![3].viewName"
+              [title]="resource.scr_modals![3].title" [requerido]="true" [inputMaxLength]="8" (modalData)="
+                handleModal(
+                  $event,
+                  ['rtv_codigo', 'rtv_descripcion'],
+                  ['codigo', 'descripcion'],
+                  4
+                )
+              "></modal-generic>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('rtv_descripcion')">{{ resource.scr_labels![38].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="rtv_descripcion" readonly />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('cli_horario_cargue')">{{ resource.scr_labels![39].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cli_horario_cargue" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('mun_area_nielsen')">{{ resource.scr_labels![40].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="mun_area_nielsen" readonly/>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('cli_um_maniobra_descargue')">{{ resource.scr_labels![41].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cli_um_maniobra_descargue"/>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('cli_tarifa_maniobra')">{{ resource.scr_labels![42].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cli_tarifa_maniobra"/>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="4">
+        <nz-form-item>
+          <nz-form-label nzFor="rvent_codigo" [nzRequired]="isRequired('rvent_codigo')">
+            {{ resource.scr_labels![44].label_name }}
+          </nz-form-label>
+          <nz-form-control>
+            <modal-generic nzNoSpaces formControlName="rvent_codigo"
+              [viewName]="resource.scr_modals![6].viewName" [title]="resource.scr_modals![6].title" [inputMaxLength]="8"
+              (modalData)="
+                handleModal(
+                  $event,
+                  ['rvent_codigo', 'ilg_ventana_horaria_descripcion'],
+                  ['codigo', 'hora_ini', 'hora_fin'],
+                  4
+                )
+              "></modal-generic>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('ilg_ventana_horaria_descripcion')">{{ resource.scr_labels![45].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="ilg_ventana_horaria_descripcion" readonly />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="isRequired('cli_observaciones')">{{ resource.scr_labels![43].label_name }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="cli_observaciones"/>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+    </nz-row>
+
+    <!-- Botones -->
+    <div *nzModalFooter>
+      <div class="button-group">
+        <button nz-button nzType="default" (click)="onVolver()">
+          Cancelar
+        </button>
+        <button nz-button nzType="primary" (click)="onGuardar()" >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </nz-card>
+</form>

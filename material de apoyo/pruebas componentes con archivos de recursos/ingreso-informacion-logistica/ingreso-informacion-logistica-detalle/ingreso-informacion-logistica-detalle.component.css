@@ -1,0 +1,10 @@
+.form-item {
+  display: flex;
+  align-items: center;
+}
+
+.form-input-fixed {
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+}
