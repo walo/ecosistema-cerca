@@ -46,6 +46,10 @@ export const routes: Routes = [
                 path: 'billing',
                 loadComponent: () => import('./pages/billing/invoices-list.component').then(m => m.InvoicesListComponent)
             },
+            {
+                path: 'dummy',
+                loadComponent: () => import('./pages/dummy/dummy-table.component').then(m => m.DummyTableComponent)
+            },
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ]
     },

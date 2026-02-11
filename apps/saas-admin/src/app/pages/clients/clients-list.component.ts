@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminSubscriptionService, Client } from '../../core/services/admin-subscription.service';
+import { ClientsResource } from './clients.resource';
 import { SectionHeaderComponent, CercaCardComponent, CercaStatusBadgeComponent } from '../../shared/components';
 import { CercaTableComponent } from '../../shared/components/organisms/cerca-table/cerca-table.component';
 import { TableColumn } from '../../shared/components/organisms/cerca-table/cerca-table.types';
@@ -63,6 +64,9 @@ export class ClientsListComponent implements OnInit {
   // Table Configuration
   tableColumns: TableColumn[] = [];
 
+  resource = new ClientsResource();
+  screenData = this.resource.getPantalla('CO');
+
   ngOnInit() {
     this.initializeColumns();
     this.loadClients();
@@ -80,25 +84,29 @@ export class ClientsListComponent implements OnInit {
   }
 
   initializeColumns() {
-    this.tableColumns = [
-      {
-        key: 'name',
-        label: 'Razón Social',
+    const resourceColumns = this.resource.getColumns('CO');
+
+    this.tableColumns = resourceColumns.map(col => {
+      const tempCol: TableColumn = {
+        key: col.col_ref,
+        label: col.col_name,
         type: 'text',
-        filter: { type: 'text', placeholder: 'Buscar...' }
-      },
-      {
-        key: 'contact_name',
-        label: 'Contacto',
-        type: 'template',
-        templateRef: this.contactTemplate,
-        filter: { type: 'text', placeholder: 'Nombre o Email' }
-      },
-      {
-        key: 'status_id',
-        label: 'Estado',
-        type: 'status',
-        filter: {
+        width: col.col_width
+      };
+
+      if (col.col_ref === 'name') {
+        tempCol.filter = { type: 'text', placeholder: 'Buscar...' };
+      } else if (col.col_ref === 'contact_name') {
+        tempCol.type = 'text';
+        // tempCol.templateRef = this.contactTemplate; // Removed as user deleted template from HTML
+        tempCol.filter = { type: 'text', placeholder: 'Nombre o Email' };
+      } else if (col.col_ref === 'contact_email') {
+        tempCol.filter = { type: 'text', placeholder: 'Email...' };
+      } else if (col.col_ref === 'contact_phone') {
+        tempCol.filter = { type: 'text', placeholder: 'Teléfono...' };
+      } else if (col.col_ref === 'status_id') {
+        tempCol.type = 'status';
+        tempCol.filter = {
           type: 'select',
           options: [
             { label: 'Activa', value: 'Activa' },
@@ -106,34 +114,37 @@ export class ClientsListComponent implements OnInit {
             { label: 'Suspendida', value: 'Suspendida' },
             { label: 'En Prueba', value: 'En Prueba' }
           ]
-        },
-        statusMap: {
+        };
+        tempCol.statusMap = {
           7: 'active',
           8: 'inactive',
           9: 'inactive',
           10: 'warning'
-        }
-      },
-      {
-        key: 'actions',
-        label: 'Acciones',
-        type: 'actions',
-        align: 'right',
-        actionConfig: [
-          {
-            icon: 'edit',
-            tooltip: 'Editar',
-            callback: (row) => this.editClient(row)
-          },
-          {
-            icon: 'delete',
-            tooltip: 'Eliminar',
-            danger: true,
-            callback: (row) => this.confirmDelete(row)
-          }
-        ]
+        };
       }
-    ];
+
+      return tempCol;
+    });
+
+    this.tableColumns.push({
+      key: 'actions',
+      label: 'Acciones',
+      type: 'actions',
+      align: 'right',
+      actionConfig: [
+        {
+          icon: 'edit',
+          tooltip: 'Editar',
+          callback: (row) => this.editClient(row)
+        },
+        {
+          icon: 'delete',
+          tooltip: 'Eliminar',
+          danger: true,
+          callback: (row) => this.confirmDelete(row)
+        }
+      ]
+    });
   }
 
   // Helper for contact column template

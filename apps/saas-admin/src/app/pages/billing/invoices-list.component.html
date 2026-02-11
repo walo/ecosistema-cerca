@@ -1,7 +1,5 @@
-<app-section-header titlePrefix="Monitor de" titleAccent="Facturación"
-    subtitle="Gestiona el ciclo de vida de cobros y estados de pago. Supervisa la salud financiera de todo el ecosistema."
-    actionLabel="Ejecutar Facturación" [actionIcon]="processing() ? 'loading' : 'sync'"
-    (actionClicked)="processBilling()">
+<app-section-header [title]="screenData.scr_title" [subtitle]="screenData.scr_description"
+    [actionLabel]="screenData.scr_action_label" actionIcon="thunderbolt" (actionClicked)="processBilling()">
 
     <div extraActions class="flex items-center gap-6">
         <div class="flex flex-col items-end pr-6 border-r border-slate-100">

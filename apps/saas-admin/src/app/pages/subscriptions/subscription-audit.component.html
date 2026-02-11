@@ -1,46 +1,16 @@
-<div class="audit-container">
-    <app-section-header titlePrefix="Auditoría de" titleAccent="Suscripciones"
-        subtitle="Trazabilidad inmutable de eventos y cambios en el ecosistema." actionLabel="Exportar Logs"
-        actionIcon="download">
-    </app-section-header>
+<app-section-header [title]="screenData.scr_title" [subtitle]="screenData.scr_description">
+</app-section-header>
 
-    <app-cerca-card [glassEffect]="true">
-        <nz-table #auditTable [nzData]="history()" class="audit-table" [nzPageSize]="10" [nzScroll]="{ x: '1000px' }">
-            <thead>
-                <tr>
-                    <th nzWidth="200px">Timestamp</th>
-                    <th nzWidth="200px">Clasificación</th>
-                    <th>Descripción del Cambio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let entry of auditTable.data">
-                    <td>
-                        <div class="timestamp-box">
-                            <span class="date">{{ entry.created_at | date:'dd MMM, yyyy' }}</span>
-                            <span class="time">{{ entry.created_at | date:'HH:mm:ss' }}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <app-cerca-status-badge [status]="entry.change_type.toLowerCase().includes('upgrade') ? 'active' : 
-                                      entry.change_type.toLowerCase().includes('downgrade') ? 'inactive' : 
-                                      'trial'" [label]="entry.change_type">
-                        </app-cerca-status-badge>
-                    </td>
-                    <td>
-                        <div class="notes-text">
-                            {{ entry.notes }}
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </nz-table>
-    </app-cerca-card>
-
-    <footer class="mt-12 flex justify-between items-center px-4">
-        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em] opacity-60">
-            Enterprise Archive v1.0 <span class="mx-3 text-slate-200">|</span>
-            Logs Totales: <span class="text-slate-900 ml-1">{{ history().length }} Registros</span>
-        </div>
-    </footer>
+<div class="px-6 pb-6">
+    <app-cerca-table [columns]="tableColumns" [data]="history()" [loading]="loading()">
+    </app-cerca-table>
 </div>
+
+<ng-template #dateTemplate let-item>
+    {{ item.created_at | date:'medium' }}
+</ng-template>
+
+<ng-template #typeTemplate let-item>
+    <app-cerca-status-badge [status]="getBadgeType(item.change_type)"
+        [label]="item.change_type"></app-cerca-status-badge>
+</ng-template>

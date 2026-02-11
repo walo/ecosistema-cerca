@@ -7,8 +7,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { TableColumn, TablePagination } from './cerca-table.types';
 import { CercaStatusBadgeComponent } from '../../atoms/cerca-status-badge/cerca-status-badge.component';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @Component({
     selector: 'app-cerca-table',
@@ -22,7 +24,9 @@ import { CercaStatusBadgeComponent } from '../../atoms/cerca-status-badge/cerca-
         NzIconModule,
         NzSelectModule,
         NzTooltipModule,
-        CercaStatusBadgeComponent
+        NzDropDownModule,
+        CercaStatusBadgeComponent,
+        NzDividerModule
     ],
     templateUrl: './cerca-table.component.html',
     styleUrls: ['./cerca-table.component.scss']
@@ -31,7 +35,7 @@ export class CercaTableComponent {
     @Input() data: any[] = [];
     @Input() columns: TableColumn[] = [];
     @Input() loading = false;
-    @Input() pagination: TablePagination = { pageIndex: 1, pageSize: 10, total: 0 };
+    @Input() pagination: TablePagination = { pageIndex: 1, pageSize: 5, total: 0 };
     @Input() scrollConfig: { x?: string; y?: string } = { x: '1000px' };
 
     @Output() filterChange = new EventEmitter<{ key: string; value: any }>();
@@ -58,6 +62,21 @@ export class CercaTableComponent {
     handleAction(action: any, row: any) {
         if (action.callback) {
             action.callback(row);
+        }
+    }
+
+    onSearch(col: TableColumn) {
+        if (col.filter) {
+            col.filter.dropdownVisible = false;
+            this.onFilter(col.key, col.filter.searchValue);
+        }
+    }
+
+    onReset(col: TableColumn) {
+        if (col.filter) {
+            col.filter.searchValue = '';
+            col.filter.dropdownVisible = false;
+            this.onFilter(col.key, '');
         }
     }
 }

@@ -5,10 +5,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
-    selector: 'app-section-header',
-    standalone: true,
-    imports: [CommonModule, RouterModule, NzButtonModule, NzIconModule],
-    template: `
+  selector: 'app-section-header',
+  standalone: true,
+  imports: [CommonModule, RouterModule, NzButtonModule, NzIconModule],
+  template: `
     <div class="premium-header-card">
       <div class="header-main">
         <div class="title-group">
@@ -23,7 +23,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
         <div class="header-actions">
           <ng-content select="[extraActions]"></ng-content>
           
-          <button *ngIf="actionLabel" nz-button nzType="primary" class="premium-button" (click)="onAction()">
+          <button *ngIf="actionLabel" extraActions nz-button nzType="primary" class="btn-primary" (click)="onAction()">
             <span nz-icon [nzType]="actionIcon"></span>
             {{ actionLabel }}
           </button>
@@ -31,7 +31,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
       </div>
     </div>
   `,
-    styles: [`
+  styles: [`
     .premium-header-card {
       background: white;
       padding: 1.5rem 2rem;
@@ -86,7 +86,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
       letter-spacing: -0.01em;
     }
 
-    .premium-button {
+    .btn-primary {
       height: 42px;
       padding: 0 1.5rem;
       border-radius: 10px;
@@ -101,7 +101,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
       border-color: var(--color-primary);
     }
 
-    .premium-button:hover {
+    .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 16px -4px rgba(91, 194, 231, 0.3);
       filter: brightness(1.1);
@@ -109,18 +109,18 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   `]
 })
 export class SectionHeaderComponent {
-    @Input() title: string = '';
-    /** If provided, title will be split: prefix + accentSpan */
-    @Input() titlePrefix: string = '';
-    @Input() titleAccent: string = '';
+  @Input() title: string = '';
+  /** If provided, title will be split: prefix + accentSpan */
+  @Input() titlePrefix: string = '';
+  @Input() titleAccent: string = '';
 
-    @Input() subtitle: string = '';
-    @Input() actionLabel: string = '';
-    @Input() actionIcon: string = 'plus';
+  @Input() subtitle: string = '';
+  @Input() actionLabel: string = '';
+  @Input() actionIcon: string = 'plus';
 
-    @Output() actionClicked = new EventEmitter<void>();
+  @Output() actionClicked = new EventEmitter<void>();
 
-    onAction() {
-        this.actionClicked.emit();
-    }
+  onAction() {
+    this.actionClicked.emit();
+  }
 }

@@ -1,6 +1,5 @@
-<app-section-header titlePrefix="Ecosistema de" titleAccent="Planes"
-    subtitle="Arquitectura de monetización para el ecosistema Acciona PH." actionLabel="Crear Nuevo Plan"
-    actionIcon="plus" (actionClicked)="navigateToNew()">
+<app-section-header [title]="screenData.scr_title" [subtitle]="screenData.scr_description"
+    [actionLabel]="screenData.scr_action_label" actionIcon="plus" (actionClicked)="navigateToNew()">
 </app-section-header>
 
 <div class="plans-container">

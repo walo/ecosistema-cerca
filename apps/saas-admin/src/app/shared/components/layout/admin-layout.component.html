@@ -13,11 +13,26 @@
         </div>
 
         <ul nz-menu nzTheme="dark" nzMode="inline" class="nav-menu">
-            @for (item of menuItems; track item.path) {
-            <li nz-menu-item [nzSelected]="router.url.includes(item.path)" [routerLink]="item.path">
+            @for (item of menuItems; track item.label) {
+            @if (item.children) {
+            <li nz-submenu [nzTitle]="item.label" [nzIcon]="item.icon">
+                <ul>
+                    @for (child of item.children; track child.label) {
+                    <li nz-menu-item
+                        [nzSelected]="child.exact ? router.url === child.path : router.url.includes(child.path!)"
+                        [routerLink]="child.path">
+                        <span>{{ child.label }}</span>
+                    </li>
+                    }
+                </ul>
+            </li>
+            } @else {
+            <li nz-menu-item [nzSelected]="item.exact ? router.url === item.path : router.url.includes(item.path!)"
+                [routerLink]="item.path">
                 <span nz-icon [nzType]="item.icon"></span>
                 <span>{{ item.label }}</span>
             </li>
+            }
             }
         </ul>
     </nz-sider>

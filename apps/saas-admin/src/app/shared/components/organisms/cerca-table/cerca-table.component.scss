@@ -4,7 +4,9 @@
 
 .header-cell {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     gap: 0.5rem;
 
     span {
@@ -49,4 +51,30 @@
 
 :host ::ng-deep .ant-table-tbody>tr:hover>td {
     background: #f8fafc;
+}
+
+.ant-table-filter-dropdown {
+    padding: 8px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.search-box {
+    padding: 8px;
+}
+
+.search-box input {
+    margin-bottom: 8px;
+    display: block;
+    width: 188px;
+}
+
+.search-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-button {
+    margin-right: 8px;
 }

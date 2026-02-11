@@ -3,10 +3,32 @@
     (nzPageIndexChange)="onPageChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowSizeChanger]="true">
     <thead>
         <tr>
-            <th *ngFor="let col of columns">
+            <th *ngFor="let col of columns" [nzCustomFilter]="!!col.filter" [nzWidth]="col.width || null">
                 <div class="header-cell">
                     <span>{{ col.label }}</span>
+                    <nz-filter-trigger *ngIf="col.filter" [nzVisible]="col.filter.dropdownVisible || false"
+                        (nzVisibleChange)="col.filter.dropdownVisible = $event"
+                        [nzActive]="(col.filter.searchValue || '').length > 0" [nzDropdownMenu]="menu">
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span nz-icon nzType="search"></span>
+                    </nz-filter-trigger>
                 </div>
+                <!-- Fix: Add *ngIf="col.filter" to prevent accessing properties of undefined -->
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <div class="ant-table-filter-dropdown" *ngIf="col.filter">
+                        <div class="search-box">
+                            <input type="text" nz-input [placeholder]="col.filter.placeholder || 'Buscar'"
+                                [(ngModel)]="col.filter.searchValue" />
+                            <div class="search-buttons">
+                                <button nz-button nzSize="small" nzType="primary" (click)="onSearch(col)"
+                                    class="search-button">
+                                    Buscar
+                                </button>
+                                <button nz-button nzSize="small" (click)="onReset(col)">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </nz-dropdown-menu>
             </th>
         </tr>
     </thead>
@@ -26,6 +48,15 @@
                 <ng-container *ngIf="col.type === 'template' && col.templateRef">
                     <ng-container *ngTemplateOutlet="col.templateRef; context: { $implicit: data }"></ng-container>
                 </ng-container>
+
+                <!-- Actions Type -->
+                <div *ngIf="col.type === 'actions'" class="flex gap-2 justify-end">
+                    <button *ngFor="let action of col.actionConfig" nz-button nzType="text" nzShape="circle"
+                        [nz-tooltip]="action.tooltip" (click)="handleAction(action, data)"
+                        [class.text-red-500]="action.danger">
+                        <span nz-icon [nzType]="action.icon"></span>
+                    </button>
+                </div>
             </td>
         </tr>
     </tbody>

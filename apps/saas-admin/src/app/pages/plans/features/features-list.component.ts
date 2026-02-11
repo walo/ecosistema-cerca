@@ -4,12 +4,13 @@ import { RouterModule } from '@angular/router';
 import { AdminSubscriptionService, FeatureDefinition } from '../../../core/services/admin-subscription.service';
 import { SectionHeaderComponent, CercaCardComponent } from '../../../shared/components';
 import { CercaTableComponent } from '../../../shared/components/organisms/cerca-table/cerca-table.component';
-import { TableColumn } from '../../../shared/components/organisms/cerca-table/cerca-table.types';
+import { TableColumn, TablePagination } from '../../../shared/components/organisms/cerca-table/cerca-table.types';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { FeatureFormComponent } from './feature-form/feature-form.component';
+import { FeaturesResource } from './features.resource';
 
 @Component({
     selector: 'app-features-list',
@@ -43,61 +44,71 @@ export class FeaturesListComponent implements OnInit {
     loading = signal(false);
     tableColumns: TableColumn[] = [];
 
+    private resource = new FeaturesResource(); // Instantiate resource
+
+    pagination = signal<TablePagination>({ pageIndex: 1, pageSize: 5, total: 0 });
+    filters: { [key: string]: any } = {};
+
     ngOnInit() {
         this.initializeColumns();
         this.loadFeatures();
     }
 
     initializeColumns() {
-        this.tableColumns = [
-            {
-                key: 'label',
-                label: 'Nombre / Etiqueta',
+        const resourceColumns = this.resource.getColumns('CO');
+
+        this.tableColumns = resourceColumns.map(col => {
+            const tempCol: TableColumn = {
+                key: col.col_ref,
+                label: col.col_name,
                 type: 'text',
-                filter: { type: 'text', placeholder: 'Buscar característica...' }
-            },
-            {
-                key: 'key',
-                label: 'Clave (Key)',
-                type: 'text',
-                width: '200px'
-            },
-            {
-                key: 'data_type',
-                label: 'Tipo de Dato',
-                type: 'template',
-                templateRef: this.typeTemplate,
-                width: '150px',
-                filter: {
+                width: col.col_width
+            };
+
+            // Custom mappings based on key
+            if (col.col_ref === 'label') {
+                tempCol.filter = { type: 'text', placeholder: 'Buscar característica...' };
+            } else if (col.col_ref === 'data_type') {
+                tempCol.type = 'template';
+                tempCol.templateRef = this.typeTemplate;
+                tempCol.filter = {
                     type: 'select',
                     options: [
                         { label: 'Booleano', value: 'boolean' },
                         { label: 'Numérico', value: 'number' },
                         { label: 'Texto', value: 'text' }
                     ]
-                }
-            },
-            {
-                key: 'description',
-                label: 'Descripción',
-                type: 'text'
-            },
-            {
-                key: 'actions',
-                label: '',
-                type: 'template',
-                templateRef: this.actionsTemplate,
-                width: '100px',
-                align: 'right'
+                };
             }
-        ];
+
+            return tempCol;
+        });
+
+        // Add Actions column manually as it's not data-driven usually, or could be in resource too
+        this.tableColumns.push({
+            key: 'actions',
+            label: '',
+            type: 'template',
+            templateRef: this.actionsTemplate,
+            width: '100px',
+            align: 'right'
+        });
+    }
+
+
+    onFilterChange(event: { key: string; value: any }) {
+        this.filters[event.key] = event.value;
+        this.pagination.update(curr => ({ ...curr, pageIndex: 1 }));
+        this.loadFeatures();
     }
 
     loadFeatures() {
         this.loading.set(true);
-        this.adminSubService.getFeatureDefinitions().subscribe({
+        console.log(this.filters);
+        this.adminSubService.getFeatureDefinitions(this.filters).subscribe({
             next: (data) => {
                 this.features.set(data);
+                this.pagination.update(curr => ({ ...curr, total: data.length }));
                 this.loading.set(false);
             },
             error: () => this.loading.set(false)

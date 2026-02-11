@@ -1,8 +1,12 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SubscriptionAuditResource } from './subscription-audit.resource';
+import { SectionHeaderComponent, CercaStatusBadgeComponent } from '../../shared/components';
+import { CercaTableComponent } from '../../shared/components/organisms/cerca-table/cerca-table.component';
+import { TableColumn } from '../../shared/components/organisms/cerca-table/cerca-table.types';
 
 export interface SubscriptionHistory {
   id: string;
@@ -14,46 +18,62 @@ export interface SubscriptionHistory {
   notes: string;
 }
 
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { SectionHeaderComponent } from '../../shared/components/molecules/section-header/section-header.component';
-import { CercaCardComponent } from '../../shared/components/atoms/cerca-card/cerca-card.component';
-import { CercaStatusBadgeComponent } from '../../shared/components/atoms/cerca-status-badge/cerca-status-badge.component';
-
 @Component({
   selector: 'app-subscription-audit',
   standalone: true,
   imports: [
     CommonModule,
-    NzTableModule,
-    NzButtonModule,
-    NzIconModule,
     SectionHeaderComponent,
-    CercaCardComponent,
-    CercaStatusBadgeComponent
+    CercaStatusBadgeComponent,
+    CercaTableComponent
   ],
   templateUrl: './subscription-audit.component.html',
   styleUrls: ['./subscription-audit.component.scss']
 })
 export class SubscriptionAuditComponent implements OnInit {
   private supabase = inject(SupabaseService);
+
+  resource = new SubscriptionAuditResource();
+  screenData = this.resource.getPantalla('CO');
+
   history = signal<SubscriptionHistory[]>([]);
-  displayedColumns: string[] = ['date', 'type', 'notes'];
+  loading = signal<boolean>(false);
+
+  tableColumns: TableColumn[] = [];
+
+  @ViewChild('dateTemplate', { static: true }) dateTemplate!: TemplateRef<any>;
+  @ViewChild('typeTemplate', { static: true }) typeTemplate!: TemplateRef<any>;
 
   ngOnInit() {
+    this.initializeColumns();
     this.loadHistory();
   }
 
-  getBadgeType(type: string): string {
-    const t = type.toLowerCase();
-    if (t.includes('upgrade')) return 'upgrade';
-    if (t.includes('downgrade')) return 'downgrade';
-    if (t.includes('billing') || t.includes('payment')) return 'billing';
-    return 'other';
+  initializeColumns() {
+    const resourceColumns = this.resource.getColumns('CO');
+
+    this.tableColumns = resourceColumns.map(col => {
+      const tempCol: TableColumn = {
+        key: col.col_ref,
+        label: col.col_name,
+        type: 'text',
+        width: col.col_width
+      };
+
+      if (col.col_ref === 'created_at') {
+        tempCol.type = 'template';
+        tempCol.templateRef = this.dateTemplate;
+      } else if (col.col_ref === 'change_type') {
+        tempCol.type = 'template';
+        tempCol.templateRef = this.typeTemplate;
+      }
+
+      return tempCol;
+    });
   }
 
   loadHistory() {
+    this.loading.set(true);
     from(this.supabase.client
       .from('subscription_history')
       .select('*')
@@ -61,8 +81,20 @@ export class SubscriptionAuditComponent implements OnInit {
       .limit(100)
     ).pipe(
       map(res => res.data || [])
-    ).subscribe(data => {
-      this.history.set(data as SubscriptionHistory[]);
+    ).subscribe({
+      next: (data) => {
+        this.history.set(data as SubscriptionHistory[]);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
     });
+  }
+
+  getBadgeType(type: string): string {
+    const t = type.toLowerCase();
+    if (t.includes('upgrade')) return 'upgrade';
+    if (t.includes('downgrade')) return 'downgrade';
+    if (t.includes('billing') || t.includes('payment')) return 'billing';
+    return 'neutral';
   }
 }

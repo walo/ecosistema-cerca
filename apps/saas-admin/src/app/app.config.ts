@@ -19,7 +19,12 @@ import {
   SearchOutline,
   BellOutline,
   UserOutline,
-  ThunderboltFill
+  ThunderboltFill,
+  PlusOutline,
+  EditOutline,
+  DeleteOutline,
+  AppstoreOutline,
+  LogoutOutline
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(en);
@@ -39,7 +44,12 @@ const icons = [
   SearchOutline,
   BellOutline,
   UserOutline,
-  ThunderboltFill
+  ThunderboltFill,
+  PlusOutline,
+  EditOutline,
+  DeleteOutline,
+  AppstoreOutline,
+  LogoutOutline
 ];
 
 export const appConfig: ApplicationConfig = {

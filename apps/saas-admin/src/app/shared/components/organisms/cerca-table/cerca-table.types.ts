@@ -8,6 +8,8 @@ export interface TableColumn {
         type: 'text' | 'select' | 'date';
         options?: { label: string; value: any }[];
         placeholder?: string;
+        dropdownVisible?: boolean;
+        searchValue?: any;
     };
     width?: string;
     align?: 'left' | 'center' | 'right';

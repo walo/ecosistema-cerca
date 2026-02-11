@@ -110,12 +110,27 @@ export class AdminSubscriptionService {
 
     // --- Feature Catalog Methods ---
 
-    getFeatureDefinitions(): Observable<FeatureDefinition[]> {
+    getFeatureDefinitions(query?: { [key: string]: any }): Observable<FeatureDefinition[]> {
+        let request = this.supabase.client
+            .from('feature_definitions')
+            .select('*');
+
+        if (query) {
+            Object.keys(query).forEach(key => {
+                const value = query[key];
+                if (value !== null && value !== undefined && value !== '') {
+                    if (key === 'label') {
+                        request = request.ilike('label', `%${value}%`);
+                    } else if (key === 'data_type') {
+                        request = request.eq('data_type', value);
+                    }
+                    // Add other specific filters here if needed
+                }
+            });
+        }
+
         return from(
-            this.supabase.client
-                .from('feature_definitions')
-                .select('*')
-                .order('label', { ascending: true })
+            request.order('label', { ascending: true })
         ).pipe(map(res => res.data || []));
     }
 

@@ -1,15 +1,12 @@
 <app-section-header title="Catálogo de Características"
-    subtitle="Define las funcionalidades y límites disponibles para los planes.">
-
-    <button extra-actions nz-button nzType="primary" class="btn-primary" (click)="openForm()">
-        <span nz-icon nzType="plus"></span>
-        Nueva Característica
-    </button>
+    subtitle="Define las funcionalidades y límites disponibles para los planes." actionLabel="Nueva Característica"
+    actionIcon="plus" (actionClicked)="openForm()">
 </app-section-header>
 
 <div class="container mx-auto px-6 py-6">
     <app-cerca-card [glassEffect]="true" [noPadding]="true">
-        <app-cerca-table [data]="features()" [columns]="tableColumns" [loading]="loading()">
+        <app-cerca-table [data]="features()" [columns]="tableColumns" [loading]="loading()" [pagination]="pagination()"
+            (filterChange)="onFilterChange($event)">
         </app-cerca-table>
 
         <ng-template #typeTemplate let-item>

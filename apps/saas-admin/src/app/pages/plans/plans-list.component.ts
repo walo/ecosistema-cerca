@@ -15,6 +15,8 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { AdminSubscriptionService, Plan } from '../../core/services/admin-subscription.service';
 import { SectionHeaderComponent, CercaCardComponent, CercaStatusBadgeComponent } from '../../shared/components';
 
+import { PlansResource } from './plans.resource';
+
 @Component({
   selector: 'app-plans-list',
   standalone: true,
@@ -43,6 +45,9 @@ export class PlansListComponent implements OnInit {
   private adminSubService = inject(AdminSubscriptionService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+
+  resource = new PlansResource();
+  screenData = this.resource.getPantalla('CO');
 
   plans = signal<Plan[]>([]);
   loading = signal(true);

@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal, computed, ViewChild, TemplateRef } f
 import { CommonModule } from '@angular/common';
 import { AdminSubscriptionService } from '../../core/services/admin-subscription.service';
 import { RouterModule } from '@angular/router';
+import { InvoicesResource } from './invoices.resource';
 import { SectionHeaderComponent, CercaCardComponent, CercaStatusBadgeComponent } from '../../shared/components';
 import { CercaTableComponent } from '../../shared/components/organisms/cerca-table/cerca-table.component';
 import { TableColumn } from '../../shared/components/organisms/cerca-table/cerca-table.types';
@@ -38,6 +39,9 @@ export class InvoicesListComponent implements OnInit {
   tableColumns: TableColumn[] = [];
   filterValues = signal<{ [key: string]: any }>({});
 
+  resource = new InvoicesResource();
+  screenData = this.resource.getPantalla('CO');
+
   ngOnInit() {
     this.initializeColumns();
     this.loadInvoices();
@@ -55,57 +59,55 @@ export class InvoicesListComponent implements OnInit {
   }
 
   initializeColumns() {
-    this.tableColumns = [
-      {
-        key: 'invoice_number',
-        label: 'Referencia / No.',
-        type: 'template',
-        templateRef: this.invoiceTemplate,
-        filter: { type: 'text', placeholder: 'Buscar ref...' }
-      },
-      {
-        key: 'client_name',
-        label: 'Entidad / Cliente',
-        type: 'template',
-        templateRef: this.clientTemplate,
-        filter: { type: 'text', placeholder: 'Cliente...' }
-      },
-      {
-        key: 'total_amount',
-        label: 'Importe',
-        type: 'template',
-        templateRef: this.amountTemplate,
-        sortable: true
-      },
-      {
-        key: 'due_date',
-        label: 'Vencimiento',
-        type: 'template',
-        templateRef: this.dateTemplate,
-        sortable: true
-      },
-      {
-        key: 'status_id',
-        label: 'Certificación',
-        type: 'template',
-        templateRef: this.statusTemplate,
-        filter: {
+    const resourceColumns = this.resource.getColumns('CO');
+
+    this.tableColumns = resourceColumns.map(col => {
+      const tempCol: TableColumn = {
+        key: col.col_ref,
+        label: col.col_name,
+        type: 'text', // Default to text, override below
+        width: col.col_width
+      };
+
+      if (col.col_ref === 'invoice_number') {
+        tempCol.type = 'template';
+        tempCol.templateRef = this.invoiceTemplate;
+        tempCol.filter = { type: 'text', placeholder: 'Buscar ref...' };
+      } else if (col.col_ref === 'client_name') {
+        tempCol.type = 'template';
+        tempCol.templateRef = this.clientTemplate;
+        tempCol.filter = { type: 'text', placeholder: 'Cliente...' };
+      } else if (col.col_ref === 'total_amount') {
+        tempCol.type = 'template';
+        tempCol.templateRef = this.amountTemplate;
+        tempCol.sortable = true;
+      } else if (col.col_ref === 'due_date') {
+        tempCol.type = 'template';
+        tempCol.templateRef = this.dateTemplate;
+        tempCol.sortable = true;
+      } else if (col.col_ref === 'status_id') {
+        tempCol.type = 'template';
+        tempCol.templateRef = this.statusTemplate;
+        tempCol.filter = {
           type: 'select',
           options: [
             { label: 'Exitosas (Paid)', value: 4 },
             { label: 'Pendientes', value: 3 },
             { label: 'Otras', value: 'other' }
           ]
-        }
-      },
-      {
-        key: 'actions',
-        label: 'Controles',
-        type: 'template',
-        templateRef: this.actionsTemplate,
-        align: 'right'
+        };
       }
-    ];
+
+      return tempCol;
+    });
+
+    this.tableColumns.push({
+      key: 'actions',
+      label: 'Controles',
+      type: 'template',
+      templateRef: this.actionsTemplate,
+      align: 'right'
+    });
   }
 
   // Computed filtered invoices

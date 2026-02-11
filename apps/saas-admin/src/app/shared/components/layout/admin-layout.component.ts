@@ -48,14 +48,21 @@ export class AdminLayoutComponent {
       icon: 'team'
     },
     {
-      path: '/plans',
       label: 'Planes y Costos',
-      icon: 'gold'
-    },
-    {
-      path: '/plans/features',
-      label: 'Características',
-      icon: 'appstore'
+      icon: 'gold',
+      children: [
+        {
+          path: '/plans',
+          label: 'Planes',
+          icon: 'gold',
+          exact: true
+        },
+        {
+          path: '/plans/features',
+          label: 'Características',
+          icon: 'appstore'
+        }
+      ]
     },
     {
       path: '/billing',

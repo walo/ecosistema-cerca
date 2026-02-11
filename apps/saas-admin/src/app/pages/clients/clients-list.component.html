@@ -1,28 +1,12 @@
-<div class="clients-container">
-    <!-- Decoration Halo -->
-    <div
-        class="absolute -top-24 -left-24 w-[500px] h-[500px] bg-primary-accent/5 blur-[160px] rounded-full pointer-events-none">
-    </div>
+<app-section-header [title]="screenData.scr_title" [subtitle]="screenData.scr_description"
+    [actionLabel]="screenData.scr_action_label" actionIcon="plus" (actionClicked)="openModal()">
+</app-section-header>
 
-    <app-section-header title="Gestión de Clientes"
-        subtitle="Administración centralizada de entidades del ecosistema Cerca." actionLabel="Nuevo Registro"
-        actionIcon="plus" (actionClicked)="openModal()">
 
-    </app-section-header>
-
-    <!-- Cerca Table Implementation -->
-    <app-cerca-card>
+<div class="container mx-auto px-6 py-6">
+    <app-cerca-card [glassEffect]="true" [noPadding]="true">
         <app-cerca-table [data]="filteredClients()" [columns]="tableColumns" [loading]="loading()"
             (filterChange)="onTableFilterChange($event)">
-
-            <!-- Template for Contact Info -->
-            <ng-template #contactTemplate let-client>
-                <div class="flex flex-col">
-                    <span class="font-medium text-gray-900">{{ client.contact_name }}</span>
-                    <span class="text-xs text-gray-500">{{ client.contact_email }}</span>
-                </div>
-            </ng-template>
-
         </app-cerca-table>
     </app-cerca-card>
 
@@ -34,7 +18,6 @@
     </footer>
 </div>
 
-<!-- Modal Form -->
 <nz-modal [(nzVisible)]="showVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
     (nzOnCancel)="closeModal()" [nzWidth]="640" nzCentered class="premium-modal">
     <ng-template #modalTitle>
