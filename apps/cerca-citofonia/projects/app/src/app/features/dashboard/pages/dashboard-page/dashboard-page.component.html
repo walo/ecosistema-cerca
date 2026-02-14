@@ -1,0 +1,50 @@
+<cc-dashboard-template title="Escritorio" subtitle="Bienvenido al panel de administración de Cerca.">
+
+    <div actions>
+        <cc-button variant="primary" icon="add">Nuevo Registro</cc-button>
+    </div>
+
+    <div metrics>
+        <cc-card *ngFor="let metric of metrics" [padding]="'4'">
+            <cc-stack gap="4">
+                <div class="metric-header">
+                    <div class="metric-icon" [ngClass]="'bg-' + metric.type">
+                        <cc-icon [name]="metric.icon" color="white"></cc-icon>
+                    </div>
+                    <cc-badge [variant]="metric.type" type="subtle">{{ metric.change }}</cc-badge>
+                </div>
+                <div class="metric-content">
+                    <p class="metric-label">{{ metric.label }}</p>
+                    <h3 class="metric-value">{{ metric.value }}</h3>
+                </div>
+            </cc-stack>
+        </cc-card>
+    </div>
+
+    <div main-content>
+        <cc-card title="Visitas Recientes">
+            <div class="recent-visits-placeholder">
+                <!-- Espacio para la tabla -->
+                <p style="color: var(--color-text-muted); padding: var(--space-8); text-align: center;">
+                    Próximamente: Integración con el sistema de citofonía y visitantes.
+                </p>
+            </div>
+        </cc-card>
+    </div>
+
+    <div sidebar-content>
+        <cc-card title="Avisos del Conjunto">
+            <cc-stack gap="4">
+                <div class="announcement">
+                    <p class="announcement-text">Mantenimiento de ascensores programado para mañana.</p>
+                    <p class="announcement-date">Hace 2 horas</p>
+                </div>
+                <div class="announcement">
+                    <p class="announcement-text">Recordatorio: Asamblea general el próximo domingo.</p>
+                    <p class="announcement-date">Hace 1 día</p>
+                </div>
+            </cc-stack>
+        </cc-card>
+    </div>
+
+</cc-dashboard-template>

@@ -1,0 +1,16 @@
+// Modal Tokens
+.cc-modal-tokens {
+    --modal-bg: var(--color-bg-primary);
+    --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+    --modal-radius: var(--radius-xl);
+    --modal-shadow: var(--shadow-xl);
+    --modal-z-index: 1000;
+
+    --modal-header-padding: var(--space-6);
+    --modal-body-padding: var(--space-6);
+    --modal-footer-padding: var(--space-4) var(--space-6);
+
+    --modal-sm-width: 400px;
+    --modal-md-width: 600px;
+    --modal-lg-width: 900px;
+}

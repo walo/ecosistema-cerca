@@ -12,19 +12,25 @@
             <nz-form-item>
                 <nz-form-label [nzNoColon]="true">Email Corporativo</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa un correo válido">
-                    <nz-input-group nzPrefixIcon="user">
+                    <nz-input-group [nzPrefix]="userPrefix">
                         <input type="email" nz-input formControlName="email" placeholder="admin@cerca.co" />
                     </nz-input-group>
+                    <ng-template #userPrefix>
+                        <span nz-icon nzType="user"></span>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzNoColon]="true">Contraseña</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa tu contraseña">
-                    <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+                    <nz-input-group [nzPrefix]="lockPrefix" [nzSuffix]="suffixTemplate">
                         <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password"
                             placeholder="••••••••••••" />
                     </nz-input-group>
+                    <ng-template #lockPrefix>
+                        <span nz-icon nzType="lock"></span>
+                    </ng-template>
                     <ng-template #suffixTemplate>
                         <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
                             (click)="passwordVisible = !passwordVisible"></span>

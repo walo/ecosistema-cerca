@@ -1,0 +1,29 @@
+/* Custom overrides for ng-zorro input to match Design System */
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.password-toggle {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.45);
+
+    &:hover {
+        color: rgba(0, 0, 0, 0.85);
+    }
+}
+
+// Ensure nz-input-group inherits width
+nz-input-group {
+    width: 100%;
+}
+
+// Error state styling (optional, depends on nz-form-item handling)
+.has-error {
+
+    ::ng-deep .ant-input,
+    ::ng-deep .ant-input-affix-wrapper {
+        border-color: #ff4d4f;
+    }
+}

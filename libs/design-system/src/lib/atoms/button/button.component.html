@@ -1,0 +1,11 @@
+<button 
+    nz-button 
+    [nzType]="nzType" 
+    [nzLoading]="loading" 
+    [nzSize]="size"
+    [disabled]="disabled"
+    [type]="type"
+    class="cerca-btn">
+    <span nz-icon [nzType]="icon" *ngIf="icon && !loading"></span>
+    <ng-content></ng-content>
+</button>

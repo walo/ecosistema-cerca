@@ -1,0 +1,21 @@
+@use './colors' as *;
+
+// Sidebar Tokens
+.cc-sidebar-tokens {
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 80px;
+    --sidebar-bg: #{$neutral-900};
+    --sidebar-border-color: #{$neutral-800};
+    --sidebar-padding: var(--space-4);
+    --sidebar-z-index: 101;
+    --sidebar-transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-item-height: 48px;
+    --sidebar-item-radius: var(--radius-lg);
+    --sidebar-item-padding: 0 var(--space-4);
+    --sidebar-item-gap: var(--space-3);
+
+    --sidebar-accent-color: #{$brand-500};
+    --sidebar-text-color: #{$neutral-0};
+    --sidebar-text-muted: #{$neutral-400};
+}

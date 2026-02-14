@@ -1,22 +1,11 @@
 import { Component, inject, OnInit, signal, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '../../core/services/supabase.service';
-import { from } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { SubscriptionAuditResource } from './subscription-audit.resource';
 import { SectionHeaderComponent, CercaStatusBadgeComponent } from '../../shared/components';
 import { CercaTableComponent } from '../../shared/components/organisms/cerca-table/cerca-table.component';
 import { TableColumn } from '../../shared/components/organisms/cerca-table/cerca-table.types';
-
-export interface SubscriptionHistory {
-  id: string;
-  client_id: string;
-  previous_plan_id: string;
-  new_plan_id: string;
-  change_type: string;
-  created_at: string;
-  notes: string;
-}
+import { SubscriptionService } from '../../core/services/subscription.service';
+import { SubscriptionHistory } from '../../core/models/subscription.model';
 
 @Component({
   selector: 'app-subscription-audit',
@@ -31,7 +20,7 @@ export interface SubscriptionHistory {
   styleUrls: ['./subscription-audit.component.scss']
 })
 export class SubscriptionAuditComponent implements OnInit {
-  private supabase = inject(SupabaseService);
+  private subscriptionService = inject(SubscriptionService);
 
   resource = new SubscriptionAuditResource();
   screenData = this.resource.getPantalla('CO');
@@ -74,27 +63,45 @@ export class SubscriptionAuditComponent implements OnInit {
 
   loadHistory() {
     this.loading.set(true);
-    from(this.supabase.client
-      .from('subscription_history')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(100)
-    ).pipe(
-      map(res => res.data || [])
-    ).subscribe({
+    this.subscriptionService.getSubscriptionHistory().subscribe({
       next: (data) => {
-        this.history.set(data as SubscriptionHistory[]);
+        const mappedData = data.map((item: any) => ({
+          ...item,
+          client_name: item.client?.name || 'N/A',
+          plan_name: item.plan?.name || 'N/A',
+          status_name: item.status?.name || 'N/A',
+          change_type: item.status?.name || 'N/A'
+        }));
+        this.history.set(mappedData as any);
         this.loading.set(false);
       },
       error: () => this.loading.set(false)
     });
   }
 
-  getBadgeType(type: string): string {
-    const t = type.toLowerCase();
-    if (t.includes('upgrade')) return 'upgrade';
-    if (t.includes('downgrade')) return 'downgrade';
-    if (t.includes('billing') || t.includes('payment')) return 'billing';
-    return 'neutral';
+  getBadgeType(type: number | string): string {
+    // If it's a number, map it to a string for badge color logic
+    // Or just use generic logic.
+    // 1: Created (Success), 2: Upgrade (Success), 3: Downgrade (Warning), 4: Cancel (Error)
+    const typeNum = Number(type);
+    switch (typeNum) {
+      case 1: return 'success'; // Created
+      case 2: return 'upgrade'; // Upgrade
+      case 3: return 'downgrade'; // Downgrade
+      case 4: return 'error'; // Cancelled
+      default: return 'neutral';
+    }
+  }
+
+  getChangeLabel(type: number): string {
+    switch (Number(type)) {
+      case 1: return 'Creación';
+      case 2: return 'Upgrade';
+      case 3: return 'Downgrade';
+      case 4: return 'Cancelación';
+      case 5: return 'Reactivación';
+      case 6: return 'Expiración';
+      default: return 'Desconocido';
+    }
   }
 }

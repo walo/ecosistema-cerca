@@ -12,5 +12,5 @@
 
 <ng-template #typeTemplate let-item>
     <app-cerca-status-badge [status]="getBadgeType(item.change_type)"
-        [label]="item.change_type"></app-cerca-status-badge>
+        [label]="getChangeLabel(item.change_type)"></app-cerca-status-badge>
 </ng-template>

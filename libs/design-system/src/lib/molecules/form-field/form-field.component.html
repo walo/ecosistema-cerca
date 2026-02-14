@@ -1,0 +1,13 @@
+<div class="cc-form-field" [class.has-error]="hasError">
+    <cc-label *ngIf="label" [text]="label" [for]="for" [required]="required" [error]="hasError">
+    </cc-label>
+
+    <div class="cc-form-field-content">
+        <ng-content></ng-content>
+    </div>
+
+    <div class="cc-form-field-info" *ngIf="hint || errorMessage">
+        <span class="cc-form-field-error" *ngIf="errorMessage">{{ errorMessage }}</span>
+        <span class="cc-form-field-hint" *ngIf="hint && !errorMessage">{{ hint }}</span>
+    </div>
+</div>

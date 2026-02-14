@@ -1,0 +1,209 @@
+/* =========================================
+   NG-ZORRO GLOBAL OVERRIDES
+   Fine-tuning and accessibility enhancements
+   ========================================= */
+
+/* --- Accessibility Enhancements --- */
+
+/* Enhanced focus visibility for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+}
+
+/* Ensure all interactive elements have minimum touch target */
+.ant-btn,
+.ant-input,
+.ant-select-selector,
+.ant-checkbox-wrapper,
+.ant-radio-wrapper,
+.ant-switch {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* --- Premium Visual Enhancements --- */
+
+/* Glassmorphism for elevated surfaces */
+.ant-card,
+.ant-modal-content,
+.ant-dropdown-menu {
+    backdrop-filter: blur(var(--surface-glass-blur));
+    background: var(--surface-glass-bg);
+    border: 1px solid var(--surface-glass-border);
+    box-shadow: var(--surface-glass-shadow);
+}
+
+/* Smooth hover transitions */
+.ant-btn,
+.ant-card,
+.ant-menu-item,
+.ant-table-row {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button hover effects */
+.ant-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.ant-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* Card hover effect */
+.ant-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* --- Table Enhancements --- */
+
+/* Striped rows for better readability */
+.ant-table-tbody>tr:nth-child(even) {
+    background-color: var(--color-bg-secondary);
+}
+
+/* Sticky header */
+.ant-table-thead>tr>th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-bg-primary);
+}
+
+/* --- Form Enhancements --- */
+
+/* Error state with better visibility */
+.ant-form-item-has-error .ant-input,
+.ant-form-item-has-error .ant-select-selector {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.1);
+}
+
+/* Success state */
+.ant-form-item-has-success .ant-input,
+.ant-form-item-has-success .ant-select-selector {
+    border-color: var(--color-success);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+}
+
+/* --- Loading States --- */
+
+/* Skeleton shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.ant-skeleton-element {
+    background: linear-gradient(90deg,
+            var(--color-bg-secondary) 0%,
+            var(--color-bg-primary) 50%,
+            var(--color-bg-secondary) 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Spinner customization */
+.ant-spin-dot-item {
+    background-color: var(--color-brand);
+}
+
+/* --- Modal Enhancements --- */
+
+/* Backdrop blur */
+.ant-modal-mask {
+    backdrop-filter: blur(4px);
+}
+
+/* Modal animation */
+.ant-modal {
+    animation: modal-fade-in 0.3s ease-out;
+}
+
+@keyframes modal-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Menu (Sidebar) Enhancements --- */
+
+/* Active menu item indicator */
+.ant-menu-dark .ant-menu-item-selected::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--color-brand);
+}
+
+/* Submenu animation */
+.ant-menu-submenu-title {
+    transition: all 0.2s ease-in-out;
+}
+
+.ant-menu-submenu-title:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Notification & Message Enhancements --- */
+
+.ant-notification,
+.ant-message {
+    backdrop-filter: blur(8px);
+}
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 768px) {
+
+    /* Increase touch targets on mobile */
+    .ant-btn,
+    .ant-input,
+    .ant-select-selector {
+        min-height: 48px;
+    }
+
+    /* Reduce card padding on mobile */
+    .ant-card-body {
+        padding: var(--space-3);
+    }
+
+    /* Full-width modals on mobile */
+    .ant-modal {
+        max-width: calc(100vw - var(--space-4));
+        margin: var(--space-2);
+    }
+}
+
+/* --- Dark Mode Support (if needed in future) --- */
+
+[data-theme='dark'] {
+
+    .ant-card,
+    .ant-modal-content {
+        background: var(--surface-glass-bg);
+        border-color: var(--surface-glass-border);
+    }
+
+    .ant-table-tbody>tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+}

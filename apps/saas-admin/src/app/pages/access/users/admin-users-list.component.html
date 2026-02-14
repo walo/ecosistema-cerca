@@ -1,0 +1,23 @@
+<app-cerca-table [columns]="tableColumns" [data]="users()" [loading]="loading()">
+</app-cerca-table>
+
+<!-- Actions Column -->
+<ng-template #actionsTemplate let-row>
+    <button nz-button nzType="text" nzShape="circle" (click)="editRole(row)" nz-tooltip="Editar Rol">
+        <span nz-icon nzType="edit" nzTheme="outline"></span>
+    </button>
+    <button nz-button nzType="text" nzShape="circle" nzDanger (click)="deleteUser(row)" nz-tooltip="Eliminar Admin">
+        <span nz-icon nzType="delete" nzTheme="outline"></span>
+    </button>
+</ng-template>
+
+<!-- Role Column (Optional styling) -->
+<ng-template #roleTemplate let-item>
+    <span [ngClass]="{
+  'text-purple-600 bg-purple-50': item?.role === 'super_admin',
+  'text-blue-600 bg-blue-50': item?.role === 'admin',
+  'text-gray-600 bg-gray-50': item?.role === 'viewer'
+}" class="px-2 py-1 rounded-full text-xs font-medium uppercase border border-opacity-20">
+        {{ item?.role }}
+    </span>
+</ng-template>

@@ -1,0 +1,31 @@
+@use './colors' as *;
+
+// Badge Tokens
+.cc-badge-tokens {
+    --badge-radius: var(--radius-sm);
+    --badge-padding-v: var(--space-1);
+    --badge-padding-h: var(--space-2);
+    --badge-font-size: var(--font-size-xs);
+    --badge-font-weight: var(--font-weight-medium);
+
+    // Variantes
+    --badge-success-bg: #D1FAE5;
+    --badge-success-text: #065F46;
+    --badge-success-border: #A7F3D0;
+
+    --badge-warning-bg: #FEF3C7;
+    --badge-warning-text: #92400E;
+    --badge-warning-border: #FDE68A;
+
+    --badge-error-bg: #FFE4E6;
+    --badge-error-text: #9F1239;
+    --badge-error-border: #FECDD3;
+
+    --badge-info-bg: var(--color-info-50);
+    --badge-info-text: var(--color-info-700);
+    --badge-info-border: var(--color-info-200);
+
+    --badge-neutral-bg: #{$neutral-100};
+    --badge-neutral-text: #{$neutral-700};
+    --badge-neutral-border: #{$neutral-200};
+}

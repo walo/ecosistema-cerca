@@ -1,0 +1,21 @@
+<div class="cc-admin-layout" [class.sidebar-collapsed]="isSidebarCollapsed">
+
+    <cc-sidebar class="cc-admin-sidebar" [class.mobile-open]="isMobileMenuOpen" [menuItems]="menuItems"
+        [collapsed]="isSidebarCollapsed" (toggleCollapse)="toggleSidebar()" (navigate)="onNavItemClick($event)">
+    </cc-sidebar>
+
+    <div class="cc-admin-main">
+        <cc-header [user]="user" [notificationsCount]="notificationsCount" (toggleSidebar)="toggleMobileMenu()"
+            (userAction)="onUserAction($event)">
+        </cc-header>
+
+        <main class="cc-admin-content">
+            <div class="cc-admin-content-container">
+                <ng-content></ng-content>
+            </div>
+        </main>
+    </div>
+
+    <!-- Overlay para móvil -->
+    <div class="cc-admin-overlay" *ngIf="isMobileMenuOpen" (click)="isMobileMenuOpen = false"></div>
+</div>

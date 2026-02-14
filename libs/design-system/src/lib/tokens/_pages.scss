@@ -1,0 +1,61 @@
+@use 'colors' as *;
+@use 'typography' as *;
+@use 'spacing' as *;
+
+// Premium Page Header
+.cc-premium-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+
+// Global Typography Utils (Semantic)
+.cc-font-heading-xl {
+    font-size: var(--font-heading-xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    color: var(--color-text-primary);
+}
+
+.cc-font-heading-lg {
+    font-size: var(--font-heading-lg);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    color: var(--color-text-primary);
+}
+
+.cc-font-heading-md {
+    font-size: var(--font-heading-md);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.3;
+    color: var(--color-text-primary);
+}
+
+.cc-font-body-lg {
+    font-size: var(--font-body-lg);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.cc-font-body-md {
+    font-size: var(--font-body-md);
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+}
+
+.cc-font-caption {
+    font-size: var(--font-caption);
+    line-height: 1.4;
+    color: var(--color-text-muted);
+}
+
+.cc-text-muted {
+    color: var(--color-text-muted);
+}
+
+// Layout Helpers
+.cc-flex-grow {
+    flex-grow: 1;
+}

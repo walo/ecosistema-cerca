@@ -1,0 +1,24 @@
+<div class="cc-dashboard-template">
+    <header class="cc-dashboard-header">
+        <cc-stack [gap]="1">
+            <h1 class="cc-dashboard-title">{{ title }}</h1>
+            <p class="cc-dashboard-subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+        </cc-stack>
+        <div class="cc-dashboard-actions">
+            <ng-content select="[actions]"></ng-content>
+        </div>
+    </header>
+
+    <cc-grid [cols]="1" [colsMd]="2" [colsLg]="4" [gap]="6" class="cc-dashboard-metrics">
+        <ng-content select="[metrics]"></ng-content>
+    </cc-grid>
+
+    <cc-grid [cols]="1" [colsLg]="3" [gap]="6" class="cc-dashboard-main">
+        <div class="cc-dashboard-primary-content">
+            <ng-content select="[main-content]"></ng-content>
+        </div>
+        <aside class="cc-dashboard-secondary-content">
+            <ng-content select="[sidebar-content]"></ng-content>
+        </aside>
+    </cc-grid>
+</div>

@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal, computed, ViewChild, TemplateRef } f
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AdminSubscriptionService, Client } from '../../core/services/admin-subscription.service';
+import { AdminSubscriptionService, Client, Plan } from '../../core/services/admin-subscription.service';
 import { ClientsResource } from './clients.resource';
 import { SectionHeaderComponent, CercaCardComponent, CercaStatusBadgeComponent } from '../../shared/components';
 import { CercaTableComponent } from '../../shared/components/organisms/cerca-table/cerca-table.component';
@@ -19,6 +19,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-clients-list',
@@ -49,6 +50,7 @@ export class ClientsListComponent implements OnInit {
   private subscriptionService = inject(AdminSubscriptionService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private message = inject(NzMessageService);
 
   @ViewChild('contactTemplate', { static: true }) contactTemplate!: TemplateRef<any>;
 
@@ -59,7 +61,12 @@ export class ClientsListComponent implements OnInit {
   // UI State
   showVisible = signal(false);
   isEditing = signal(false);
+  showPlanModal = signal(false);
   activeClientId = signal<string | null>(null);
+
+  // Plans Data
+  plans = signal<Plan[]>([]);
+  selectedPlanId = signal<string | null>(null);
 
   // Table Configuration
   tableColumns: TableColumn[] = [];
@@ -70,13 +77,23 @@ export class ClientsListComponent implements OnInit {
   ngOnInit() {
     this.initializeColumns();
     this.loadClients();
+    this.loadPlans();
+  }
+
+  loadPlans() {
+    this.subscriptionService.getPlans().subscribe(data => this.plans.set(data));
   }
 
   loadClients() {
     this.loading.set(true);
     this.subscriptionService.getClients().subscribe({
       next: (data) => {
-        this.clients.set(data);
+        const mappedData = data.map(client => ({
+          ...client,
+          current_plan: client.active_subscription?.[0]?.plan?.name || 'Sin Plan',
+          subscription_status: client.active_subscription?.[0]?.status?.name || 'Sin Suscripción'
+        }));
+        this.clients.set(mappedData);
         this.loading.set(false);
       },
       error: () => this.loading.set(false)
@@ -142,6 +159,11 @@ export class ClientsListComponent implements OnInit {
           tooltip: 'Eliminar',
           danger: true,
           callback: (row) => this.confirmDelete(row)
+        },
+        {
+          icon: 'schedule',
+          tooltip: 'Asignar Plan',
+          callback: (row) => this.openAssignPlanModal(row)
         }
       ]
     });
@@ -191,7 +213,7 @@ export class ClientsListComponent implements OnInit {
 
 
 
-  onTableFilterChange(event: { key: string; value: any }) {
+  onTableFilterChange(event: { key: string; value: string | number | null }) {
     this.filterValues.update(current => ({ ...current, [event.key]: event.value }));
   }
 
@@ -260,5 +282,37 @@ export class ClientsListComponent implements OnInit {
       10: 'En Prueba'
     };
     return labels[statusId] || 'Desconocido';
+  }
+
+  // --- Plan Assignment Logic ---
+
+  openAssignPlanModal(client: Client) {
+    this.activeClientId.set(client.id);
+    this.selectedPlanId.set(null);
+    this.showPlanModal.set(true);
+  }
+
+  closePlanModal() {
+    this.showPlanModal.set(false);
+    this.selectedPlanId.set(null);
+  }
+
+  saveSubscription() {
+    if (!this.activeClientId() || !this.selectedPlanId()) return;
+
+    this.submitting.set(true);
+    this.subscriptionService.assignSubscription(this.activeClientId()!, this.selectedPlanId()!)
+      .subscribe({
+        next: () => {
+          this.message.success('Plan asignado correctamente');
+          this.submitting.set(false);
+          this.closePlanModal();
+        },
+        error: (err) => {
+          console.error(err);
+          this.message.error('Error al asignar el plan');
+          this.submitting.set(false);
+        }
+      });
   }
 }

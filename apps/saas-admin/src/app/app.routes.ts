@@ -43,8 +43,24 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/subscriptions/subscription-audit.component').then(m => m.SubscriptionAuditComponent)
             },
             {
+                path: 'subscriptions',
+                loadChildren: () => import('./pages/subscriptions/subscriptions.routes').then(m => m.SUBSCRIPTION_ROUTES)
+            },
+            {
                 path: 'billing',
-                loadComponent: () => import('./pages/billing/invoices-list.component').then(m => m.InvoicesListComponent)
+                loadChildren: () => import('./pages/billing/billing.routes').then(m => m.BILLING_ROUTES)
+            },
+            {
+                path: 'catalog',
+                loadChildren: () => import('./pages/catalog/catalog.routes').then(m => m.CATALOG_ROUTES)
+            },
+            {
+                path: 'access',
+                loadChildren: () => import('./pages/access/access.routes').then(m => m.ACCESS_ROUTES)
+            },
+            {
+                path: 'settings',
+                loadComponent: () => import('./pages/settings/settings.component').then(m => m.SettingsComponent)
             },
             {
                 path: 'dummy',

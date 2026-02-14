@@ -1,0 +1,43 @@
+.cc-form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--form-field-margin-bottom);
+    width: 100%;
+
+    .cc-form-field-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cc-form-field-info {
+        margin-top: var(--form-field-message-margin);
+        min-height: 1.25rem;
+    }
+
+    .cc-form-field-error {
+        color: var(--form-field-error-color);
+        font-size: var(--form-field-message-font-size);
+        font-weight: var(--font-weight-medium);
+        display: block;
+        animation: fadeIn 200ms ease-out;
+    }
+
+    .cc-form-field-hint {
+        color: var(--form-field-message-color);
+        font-size: var(--form-field-message-font-size);
+        display: block;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
