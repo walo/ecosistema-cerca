@@ -13,7 +13,8 @@ Se activa cuando el usuario solicita realizar investigaciones, gestionar cuadern
 ## Herramientas y Capacidades
 
 ### 🔐 Autenticación y Gestión
-- **`refresh_auth`**: Recarga tokens o inicia re-autenticación automática (headless). usar después de `notebooklm-mcp-auth`.
+- **`refresh_auth`**: Recarga tokens o inicia re-autenticación automática (headless). usar después de ejecutar el CLI:
+  `C:\Users\WalterU\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts\notebooklm-mcp-auth.exe`
 - **`save_auth_tokens`**: Método de respaldo para guardar cookies manualmente si falla el CLI.
 
 ### 📚 Gestión de Cuadernos
