@@ -1,4 +1,3 @@
-<nz-card class="cerca-card" [nzTitle]="title" [nzBordered]="bordered" [nzHoverable]="hoverable" [nzLoading]="loading"
-    [nzSize]="size">
+<nz-card [nzTitle]="$any(title())" [nzExtra]="extra()" [nzLoading]="$any(loading())" [nzBordered]="$any(bordered())">
     <ng-content></ng-content>
 </nz-card>

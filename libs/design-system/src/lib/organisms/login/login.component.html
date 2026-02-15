@@ -1,0 +1,64 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            @if (logoUrl) {
+            <img [src]="logoUrl" alt="Logo" class="logo" />
+            } @else if (icon) {
+            <div class="logo-box">
+                <nz-icon nzType="thunderbolt" nzTheme="fill" />
+            </div>
+            }
+            <h2 class="title">
+                {{ title }}
+                @if (titleAccent) {
+                <span class="accent">{{ titleAccent }}</span>
+                }
+            </h2>
+            <p class="subtitle text-uppercase">{{ subtitle }}</p>
+        </div>
+
+        @if (errorMessage) {
+        <nz-alert nzType="error" [nzMessage]="errorMessage" nzShowIcon class="error-alert"></nz-alert>
+        }
+
+        <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+
+            <nz-form-item>
+                <nz-form-control
+                    [nzErrorTip]="fieldInvalid('email') ? 'El campo es requerido' : 'Ingrese su correo electrónico'"
+                    [nzValidateStatus]="fieldInvalid('email') ? 'error' : ''">
+                    <cc-input formControlName="email" placeholder="correo@ejemplo.com" label="Correo Electrónico"
+                        type="email" prefix="user">
+                    </cc-input>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="fieldInvalid('password') ? 'Por favor ingrese su contraseña!' : ''"
+                    [nzValidateStatus]="fieldInvalid('password') ? 'error' : ''">
+                    <cc-input formControlName="password" placeholder="********" label="Contraseña" type="password"
+                        prefix="lock">
+                    </cc-input>
+                </nz-form-control>
+            </nz-form-item>
+
+            <div class="form-actions-row">
+                <label nz-checkbox formControlName="remember">Recordarme</label>
+                @if (recoverPasswordUrl) {
+                <a [href]="recoverPasswordUrl" class="forgot-password">{{ forgotPasswordLabel }}</a>
+                } @else {
+                <a class="forgot-password" (click)="forgotPasswordClick.emit()">{{ forgotPasswordLabel }}</a>
+                }
+            </div>
+
+            <cc-button [loading]="loading" variant="primary" type="submit" class="submit-button"
+                [disabled]="loginForm.invalid || loading">
+                Iniciar Sesión
+            </cc-button>
+        </form>
+
+        <div class="login-footer">
+            <p>¿Necesitas ayuda? Contacta a <a [href]="'mailto:' + supportEmail">{{ supportEmail }}</a></p>
+        </div>
+    </div>
+</div>

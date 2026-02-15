@@ -11,84 +11,69 @@
 :root,
 [data-theme="light"] {
     /* --- Colors (Light) --- */
-    --color-bg-primary: #{$neutral-0};
-    --color-bg-secondary: #{$neutral-50};
+    --color-bg-primary: var(--color-surface);
+    --color-bg-secondary: var(--color-background);
 
-    --color-text-primary: #{$neutral-900};
-    --color-text-secondary: #{$neutral-600};
-    --color-text-muted: #{$neutral-400};
+    --color-text-primary: var(--color-slate-900);
+    --color-text-secondary: var(--color-secondary);
+    --color-text-muted: var(--color-secondary-light);
 
-    --color-border-subtle: #{$neutral-200};
-    --color-border-strong: #{$neutral-300};
+    --color-border-subtle: var(--color-slate-200);
+    --color-border-strong: var(--color-slate-300);
 
-    --color-brand: #{$brand-600};
-    --color-brand-hover: #{$brand-700};
-    --color-focus-ring: rgba(2, 132, 199, 0.2);
+    --color-brand: var(--color-primary);
+    --color-brand-hover: var(--color-primary-hover);
+    --color-focus-ring: var(--ant-primary-color-outline);
 
-    --color-success: #{$success-500};
-    --color-danger: #{$error-500};
+    --color-success: var(--color-success);
+    --color-danger: var(--color-alert);
 
     /* --- Glassmorphism (Light) --- */
     --surface-glass-bg: rgba(255, 255, 255, 0.7);
     --surface-glass-border: rgba(255, 255, 255, 0.3);
     --surface-glass-blur: 12px;
-    --surface-glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --surface-glass-shadow: var(--shadow-glass);
 
     /* --- Typography Semantic Mapping --- */
-    --font-heading-xl: #{$font-size-heading-xl};
-    --font-heading-lg: #{$font-size-heading-lg};
-    --font-heading-md: #{$font-size-heading-md};
-    --font-body-lg: #{$font-size-body-lg};
-    --font-body-md: #{$font-size-body-md};
-    --font-caption: #{$font-size-caption-text};
+    --font-heading-xl: 32px;
+    --font-heading-lg: 24px;
+    --font-heading-md: 20px;
+    --font-body-lg: 18px;
+    --font-body-md: 16px;
+    --font-caption: 12px;
 
     /* --- Primitives as CSS Variables --- */
-    --font-family-base: #{$font-family-base};
-    --font-weight-regular: #{$font-weight-regular};
-    --font-weight-medium: #{$font-weight-medium};
-    --font-weight-semibold: #{$font-weight-semibold};
-    --font-weight-bold: #{$font-weight-bold};
+    --font-family-base: var(--font-sans);
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
 
-    --radius-sm: #{$radius-sm};
-    --radius-md: #{$radius-md};
-    --radius-lg: #{$radius-lg};
-    --radius-xl: #{$radius-xl};
+    --radius-sm: var(--radius-cerca-sm);
+    --radius-md: var(--radius-cerca);
+    --radius-lg: var(--radius-cerca-lg);
+    --radius-xl: 3rem;
     --radius-full: 9999px;
 
-    --font-size-xs: #{$font-size-xs};
-    --font-size-sm: #{$font-size-sm};
-    --font-size-md: #{$font-size-md};
-    --font-size-lg: #{$font-size-lg};
-    --font-size-xl: #{$font-size-xl};
-    --font-size-2xl: #{$font-size-2xl};
-    --font-size-3xl: #{$font-size-3xl};
-
-    --space-1: #{$space-1};
-    --space-2: #{$space-2};
-    --space-3: #{$space-3};
-    --space-4: #{$space-4};
-    --space-6: #{$space-6};
-    --space-8: calc(var(--space-4) * 2);
-
-    --shadow-sm: #{$shadow-sm};
-    --shadow-md: #{$shadow-md};
-    --shadow-lg: #{$shadow-lg};
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] {
     /* --- Colors (Dark) --- */
-    --color-bg-primary: #{$neutral-900};
-    --color-bg-secondary: #{$neutral-800};
+    --color-bg-primary: var(--color-slate-900);
+    --color-bg-secondary: var(--color-slate-800);
 
-    --color-text-primary: #{$neutral-0};
-    --color-text-secondary: #{$neutral-400};
-    --color-text-muted: #{$neutral-500};
+    --color-text-primary: var(--color-white);
+    --color-text-secondary: var(--color-slate-400);
+    --color-text-muted: var(--color-slate-500);
 
-    --color-border-subtle: #{$neutral-700};
-    --color-border-strong: #{$neutral-600};
+    --color-border-subtle: var(--color-slate-700);
+    --color-border-strong: var(--color-slate-600);
 
-    --color-brand: #{$brand-500};
-    --color-brand-hover: #{$brand-300};
+    --color-brand: var(--color-primary-light);
+    --color-brand-hover: var(--color-primary-accent);
     --color-focus-ring: rgba(59, 130, 246, 0.5);
 
     /* --- Glassmorphism (Dark) --- */

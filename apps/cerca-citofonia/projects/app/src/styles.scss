@@ -1,5 +1,6 @@
 /* Global Styles CERCA Citofonia */
-@use 'tokens/index' as ds;
+@use '@cerca/design-system/src/lib/tokens/index' as ds;
+@use '@cerca/design-system/src/lib/styles/index' as theme;
 
 // Definir tema por defecto
 :root {

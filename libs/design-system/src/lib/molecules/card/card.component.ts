@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, signal, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzCardModule } from 'ng-zorro-antd/card';
 
@@ -10,10 +10,9 @@ import { NzCardModule } from 'ng-zorro-antd/card';
     styleUrls: ['./card.component.scss']
 })
 export class CcCardComponent {
-    @Input() title?: string;
-    @Input() padding: string = '6';
-    @Input() hoverable: boolean = false;
-    @Input() bordered: boolean = true;
-    @Input() loading: boolean = false;
-    @Input() size: 'default' | 'small' = 'default';
+    title = input<string>('');
+    extra = input<string | undefined>(undefined);
+    loading = input<boolean>(false);
+    bordered = input<boolean>(true);
+    padding = input<string | number>('24px');
 }

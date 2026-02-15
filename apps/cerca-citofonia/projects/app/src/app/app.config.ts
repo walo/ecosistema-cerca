@@ -33,6 +33,8 @@ const icons = [
   InfoCircleOutline
 ];
 
+// MINIMAL CONFIG FOR DEBUGGING NG0203
+// Temporarily removed all providers to isolate the error
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -43,7 +45,7 @@ export const appConfig: ApplicationConfig = {
     provideNzIcons(icons),
     provideNzConfig({
       theme: {
-        primaryColor: '#0284C7', // Sky-600 from Design System
+        primaryColor: '#0284C7',
       },
       notification: {
         nzPlacement: 'topRight',

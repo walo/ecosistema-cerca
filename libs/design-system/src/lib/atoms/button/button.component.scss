@@ -11,6 +11,13 @@
     border-radius: var(--btn-radius, var(--radius-md));
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
+    /* Ensure content formatting */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    /* Space between icon and text */
+
     /* Enhanced focus ring for accessibility */
     &:focus-visible {
         box-shadow: 0 0 0 3px var(--color-focus-ring);
@@ -29,13 +36,13 @@
 
 /* Primary button customization */
 :host ::ng-deep .ant-btn-primary.cerca-btn {
-    background-color: var(--btn-bg-primary, var(--color-brand));
-    border-color: var(--btn-bg-primary, var(--color-brand));
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
     box-shadow: var(--btn-shadow-default, var(--shadow-sm));
 
     &:hover:not(:disabled) {
-        background-color: var(--color-brand-hover);
-        border-color: var(--color-brand-hover);
+        background-color: var(--color-primary-hover);
+        border-color: var(--color-primary-hover);
         box-shadow: var(--btn-shadow-hover, var(--shadow-md));
     }
 }
@@ -75,9 +82,23 @@
     }
 }
 
-/* Disabled state */
+/* Disabled state - Inactive Look */
 :host ::ng-deep .cerca-btn:disabled {
-    opacity: 0.5;
+    background-color: var(--color-slate-200);
+    /* Inactive background */
+    color: var(--color-slate-400);
+    /* Inactive text */
+    border-color: var(--color-slate-200);
+    opacity: 1;
+    /* Reset opacity to ensure solid color */
     cursor: not-allowed;
     transform: none !important;
+    box-shadow: none;
+
+    /* Ensure specific overrides for primary buttons when disabled */
+    &.ant-btn-primary {
+        background-color: var(--color-slate-200);
+        border-color: var(--color-slate-200);
+        color: var(--color-slate-400);
+    }
 }

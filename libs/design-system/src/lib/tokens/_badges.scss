@@ -25,7 +25,7 @@
     --badge-info-text: var(--color-info-700);
     --badge-info-border: var(--color-info-200);
 
-    --badge-neutral-bg: #{$neutral-100};
-    --badge-neutral-text: #{$neutral-700};
-    --badge-neutral-border: #{$neutral-200};
+    --badge-neutral-bg: var(--color-slate-100);
+    --badge-neutral-text: var(--color-slate-700);
+    --badge-neutral-border: var(--color-slate-200);
 }

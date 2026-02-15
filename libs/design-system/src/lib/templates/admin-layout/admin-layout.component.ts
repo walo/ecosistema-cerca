@@ -2,12 +2,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CcHeaderComponent, HeaderUser } from '../../organisms/header/header.component';
 import { CcSidebarComponent } from '../../organisms/sidebar/sidebar.component';
-import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'cc-admin-layout',
     standalone: true,
-    imports: [CommonModule, CcHeaderComponent, CcSidebarComponent, RouterModule],
+    imports: [CommonModule, CcHeaderComponent, CcSidebarComponent],
     templateUrl: './admin-layout.component.html',
     styleUrls: ['./admin-layout.component.scss']
 })

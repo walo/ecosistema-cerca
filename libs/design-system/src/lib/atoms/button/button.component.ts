@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, computed, Input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -13,23 +13,24 @@ type ButtonType = 'primary' | 'default' | 'dashed' | 'text' | 'link';
     styleUrls: ['./button.component.scss']
 })
 export class CcButtonComponent {
-    @Input() variant: 'primary' | 'secondary' | 'ghost' | 'outline' = 'primary';
-    @Input() type: 'button' | 'submit' | 'reset' = 'button';
-    @Input() disabled: boolean = false;
-    @Input() loading: boolean = false;
-    @Input() icon?: string;
-    @Input() size: 'large' | 'default' | 'small' = 'default';
+    variant = input<'primary' | 'secondary' | 'ghost' | 'outline'>('primary');
+    type = input<'button' | 'submit' | 'reset'>('button');
 
-    /**
-     * Maps our custom variant names to ng-zorro button types
-     */
-    get nzType(): ButtonType {
+    _disabled = signal<boolean>(false);
+    @Input() set disabled(value: boolean) { this._disabled.set(value); }
+    get disabled() { return this._disabled(); }
+
+    loading = input<boolean>(false);
+    icon = input<string | undefined>(undefined);
+    size = input<'large' | 'default' | 'small'>('default');
+
+    nzType = computed<ButtonType>(() => {
         const variantMap: Record<string, ButtonType> = {
             'primary': 'primary',
             'secondary': 'default',
             'ghost': 'text',
             'outline': 'dashed'
         };
-        return variantMap[this.variant] || 'default';
-    }
+        return variantMap[this.variant()] || 'default';
+    });
 }

@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, ViewChild, TemplateRef } from '@angular/core';
+import { Component, input, forwardRef, signal, computed, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -7,7 +7,12 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 @Component({
     selector: 'cc-input',
     standalone: true,
-    imports: [CommonModule, FormsModule, NzInputModule, NzIconModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NzInputModule,
+        NzIconModule
+    ],
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss'],
     providers: [
@@ -19,29 +24,31 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     ]
 })
 export class CcInputComponent implements ControlValueAccessor {
-    @Input() type: string = 'text';
-    @Input() placeholder: string = '';
-    @Input() disabled: boolean = false;
-    @Input() error: boolean = false;
-    @Input() size: 'large' | 'default' | 'small' = 'default';
-    @Input() prefix?: string; // Icon prefix name
+    type = input<string>('text');
+    placeholder = input<string>('');
+    label = input<string>('');
+    error = input<boolean>(false);
 
-    @ViewChild('prefixTemplate', { static: true }) prefixTemplateRef!: TemplateRef<void>;
-    @ViewChild('suffixTemplate', { static: true }) suffixTemplateRef!: TemplateRef<void>;
-    @Input() suffix?: string; // Icon suffix name
+    _disabled = signal<boolean>(false);
+    @Input() set disabled(value: boolean) { this._disabled.set(value); }
+    get disabled() { return this._disabled(); }
+
+    size = input<'large' | 'default' | 'small'>('small');
+    prefix = input<string | undefined>(undefined);
+    suffix = input<string | undefined>(undefined);
 
     value: string = '';
-    passwordVisible: boolean = false;
+    passwordVisible = signal<boolean>(false);
 
     onChange: any = () => { };
     onTouched: any = () => { };
 
-    get inputType(): string {
-        if (this.type === 'password') {
-            return this.passwordVisible ? 'text' : 'password';
+    inputType = computed(() => {
+        if (this.type() === 'password') {
+            return this.passwordVisible() ? 'text' : 'password';
         }
-        return this.type;
-    }
+        return this.type();
+    });
 
     onInputChange(event: Event): void {
         const target = event.target as HTMLInputElement;
@@ -51,8 +58,8 @@ export class CcInputComponent implements ControlValueAccessor {
     }
 
     togglePasswordVisibility(): void {
-        if (this.type === 'password') {
-            this.passwordVisible = !this.passwordVisible;
+        if (this.type() === 'password') {
+            this.passwordVisible.update(visible => !visible);
         }
     }
 
@@ -69,6 +76,6 @@ export class CcInputComponent implements ControlValueAccessor {
     }
 
     setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this._disabled.set(isDisabled);
     }
 }

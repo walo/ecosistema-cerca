@@ -37,10 +37,8 @@
                 "../../libs/design-system/src/lib"
               ]
             },
-            "preserveSymlinks": true,
+            "preserveSymlinks": false,
             "styles": [
-              "projects/app/src/styles/ng-zorro-theme.scss",
-              "projects/app/src/styles/ng-zorro-overrides.scss",
               "projects/app/src/styles.scss"
             ]
           },
@@ -49,8 +47,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "600kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.5MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",

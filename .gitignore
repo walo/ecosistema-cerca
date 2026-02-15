@@ -11,6 +11,7 @@ dist/
 tmp/
 out-app/
 bazel-out/
+material de apoyo/
 
 # IDE files
 .vscode/
