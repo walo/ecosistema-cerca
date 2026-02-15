@@ -1,0 +1,33 @@
+﻿[33mÔØ»[39m Building...
+[32mÔ£ö[39m Building...
+Application bundle generation failed. [11.361 seconds] - 2026-02-13T23:54:32.285Z
+
+node.exe : [1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m 
+[1mTS2322: Type '"lg"' is not assignable to type '"default" | 
+"large" | "small"'.[0m [1m[35m[plugin angular-compiler][0m
+En C:\Users\WalterU\AppData\Roaming\npm\ng.ps1: 24 Carácter: 5
++     & "node$exe"  "$basedir/node_modules/@angular/cli/bin/ng.js" 
+$arg ...
++     
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([1m[31m[31mX...r-c 
+   ompiler][0m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+    projects/app/src/app/features/residents/pages/residents-list/re
+sidents-list.component.html:9:52:
+[37m      9 Ôöé ... variant="primary" icon="add" 
+[32msize[37m="lg">Nuevo Residente</cc-button>
+        ÔòÁ                                  [32m~~~~[0m
+
+  Error occurs in the template of component ResidentsListComponent.
+
+    projects/app/src/app/features/residents/pages/residents-list/re
+sidents-list.component.ts:26:17:
+[37m      26 Ôöé     templateUrl: 
+[32m'./residents-list.component.html'[37m
+         ÔòÁ                  
+[32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

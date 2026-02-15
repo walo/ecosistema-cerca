@@ -14,6 +14,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AdminSubscriptionService, Plan, PlanFeature, FeatureDefinition } from '../../core/services/admin-subscription.service';
 
@@ -35,7 +37,9 @@ import { AdminSubscriptionService, Plan, PlanFeature, FeatureDefinition } from '
     NzDividerModule,
     NzSpaceModule,
     NzInputNumberModule,
-    NzPageHeaderModule
+    NzPageHeaderModule,
+    NzTableModule,
+    NzTooltipModule
   ],
   templateUrl: './plan-form.component.html',
   styleUrl: './plan-form.component.scss'
@@ -56,15 +60,12 @@ export class PlanFormComponent implements OnInit {
 
   planForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    code: ['', [Validators.required, Validators.pattern(/^[A-Z0-9_]+$/)]],
+    code: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9_]+$/)]],
     description: [''],
     price: [0, [Validators.required, Validators.min(0)]],
     billing_cycle: [1, Validators.required],
     trial_days: [15, [Validators.required, Validators.min(0)]],
     is_active: [true],
-    max_users: [0],
-    max_branches: [1],
-    max_appointments_per_month: [0],
     features: this.fb.array([])
   });
 
@@ -111,17 +112,31 @@ export class PlanFormComponent implements OnInit {
   }
 
   addFeature(feature?: Partial<PlanFeature>) {
+    const sequence = feature?.sequence !== undefined ? feature.sequence : this.features.length;
+
+    // Parse value based on definition type if loading existing feature
+    let value: any = feature?.value || '';
+    if (feature?.feature_definition_id) {
+      const def = this.featuresList().find(d => d.id === feature.feature_definition_id);
+      if (def?.data_type === 'boolean') {
+        value = feature.value === 'true';
+      } else if (def?.data_type === 'number') {
+        value = feature.value ? Number(feature.value) : 0;
+      }
+    }
+
     this.features.push(this.fb.group({
       id: [feature?.id || null],
-      key: [feature?.key || '', Validators.required],
-      value: [feature?.value || '', Validators.required],
-      plan_id: [this.planId || null]
+      feature_definition_id: [feature?.feature_definition_id || '', Validators.required],
+      value: [value, Validators.required],
+      plan_id: [this.planId || null],
+      sequence: [sequence]
     }));
   }
 
   getFeatureType(index: number): 'boolean' | 'number' | 'text' {
-    const key = this.features.at(index).get('key')?.value;
-    const def = this.featuresList().find(f => f.key === key);
+    const id = this.features.at(index).get('feature_definition_id')?.value;
+    const def = this.featuresList().find(f => f.id === id);
     return def?.data_type || 'text';
   }
 
@@ -171,12 +186,13 @@ export class PlanFormComponent implements OnInit {
     }
 
     let completed = 0;
-    featuresList.forEach(f => {
-      // Ensure value is string
+    featuresList.forEach((f, index) => {
+      // Ensure value is string and sequence is set
       const featureToSave = {
         ...f,
         plan_id: planId,
-        value: String(f.value)
+        value: String(f.value),
+        sequence: f.sequence // Preserves the original sequence value
       };
 
       this.adminSubService.savePlanFeature(featureToSave).subscribe({
@@ -184,6 +200,7 @@ export class PlanFormComponent implements OnInit {
           completed++;
           if (completed === featuresList.length) {
             this.message.success(this.isEdit ? 'Plan actualizado' : 'Plan creado');
+            this.loading.set(false);
             this.router.navigate(['/plans']);
           }
         },
@@ -191,6 +208,7 @@ export class PlanFormComponent implements OnInit {
           completed++;
           if (completed === featuresList.length) {
             this.message.warning('Plan guardado, pero algunas características fallaron');
+            this.loading.set(false);
             this.router.navigate(['/plans']);
           }
         }

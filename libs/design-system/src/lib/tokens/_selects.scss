@@ -1,0 +1,18 @@
+// Select Tokens
+.cc-select-tokens {
+    --select-bg: var(--color-bg-primary);
+    --select-border: var(--color-border-subtle);
+    --select-border-hover: var(--color-border-strong);
+    --select-border-focus: var(--color-brand-primary);
+    --select-shadow-focus: var(--shadow-focus);
+    --select-radius: var(--radius-md);
+    --select-height: 44px;
+    --select-padding-h: var(--space-4);
+    --select-dropdown-bg: var(--color-bg-primary);
+    --select-dropdown-shadow: var(--shadow-md);
+    --select-dropdown-max-height: 240px;
+    --select-option-padding: var(--space-3) var(--space-4);
+    --select-option-hover: var(--color-bg-secondary);
+    --select-option-selected-bg: var(--color-brand-50);
+    --select-option-selected-text: var(--color-brand-primary);
+}

@@ -24,7 +24,19 @@ import {
   EditOutline,
   DeleteOutline,
   AppstoreOutline,
-  LogoutOutline
+  LogoutOutline,
+  ShopOutline,
+  ScheduleOutline,
+  SafetyOutline,
+  SafetyCertificateOutline,
+  FileTextOutline,
+  PercentageOutline,
+  TagsOutline,
+  BarcodeOutline,
+  LockOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  InfoCircleOutline
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(en);
@@ -49,7 +61,19 @@ const icons = [
   EditOutline,
   DeleteOutline,
   AppstoreOutline,
-  LogoutOutline
+  LogoutOutline,
+  ShopOutline,
+  ScheduleOutline,
+  SafetyOutline,
+  SafetyCertificateOutline,
+  FileTextOutline,
+  PercentageOutline,
+  TagsOutline,
+  BarcodeOutline,
+  LockOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  InfoCircleOutline
 ];
 
 export const appConfig: ApplicationConfig = {

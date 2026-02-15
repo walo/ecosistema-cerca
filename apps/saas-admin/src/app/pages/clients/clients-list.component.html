@@ -83,3 +83,26 @@
         </div>
     </ng-template>
 </nz-modal>
+
+<!-- Modal Asignar Plan -->
+<nz-modal [(nzVisible)]="showPlanModal" nzTitle="Asignar Plan de Suscripción" (nzOnCancel)="closePlanModal()"
+    [nzFooter]="planModalFooter" [nzWidth]="500" nzCentered class="premium-modal">
+    <ng-container *nzModalContent>
+        <div class="p-4">
+            <p class="text-slate-500 mb-4">Seleccione el plan que desea asignar a este cliente. Esto creará una nueva
+                suscripción activa.</p>
+            <nz-select class="w-full" [ngModel]="selectedPlanId()" (ngModelChange)="selectedPlanId.set($event)"
+                nzPlaceHolder="Seleccione un plan" nzSize="large">
+                <nz-option *ngFor="let plan of plans()" [nzValue]="plan.id"
+                    [nzLabel]="plan.name + ' - $' + plan.price"></nz-option>
+            </nz-select>
+        </div>
+    </ng-container>
+    <ng-template #planModalFooter>
+        <button nz-button (click)="closePlanModal()">Cancelar</button>
+        <button nz-button nzType="primary" [nzLoading]="submitting()" [disabled]="!selectedPlanId()"
+            (click)="saveSubscription()">
+            Confirmar Asignación
+        </button>
+    </ng-template>
+</nz-modal>

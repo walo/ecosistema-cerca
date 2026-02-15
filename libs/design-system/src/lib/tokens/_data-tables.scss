@@ -1,0 +1,11 @@
+// Data Table Tokens
+.cc-data-table-tokens {
+    --table-bg: var(--color-bg-primary);
+    --table-header-bg: var(--color-bg-secondary);
+    --table-border-color: var(--color-border-subtle);
+    --table-header-color: var(--color-text-muted);
+    --table-row-hover: rgba(var(--color-brand-primary-rgb), 0.04);
+    --table-cell-padding: var(--space-4);
+    --table-font-size: var(--font-size-sm);
+    --table-radius: var(--radius-lg);
+}

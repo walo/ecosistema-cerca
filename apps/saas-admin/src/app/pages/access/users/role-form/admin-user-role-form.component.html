@@ -1,0 +1,28 @@
+<div *nzModalTitle>
+    Editar Rol de Usuario
+</div>
+
+<form nz-form [formGroup]="form" (ngSubmit)="submitForm()" nzLayout="vertical">
+    <div class="mb-4">
+        <span class="text-gray-500">Usuario ID:</span>
+        <span class="font-medium ml-2">{{ adminUser?.user_id }}</span>
+    </div>
+
+    <nz-form-item>
+        <nz-form-label nzRequired>Rol</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="role">
+                <nz-option nzValue="super_admin" nzLabel="Super Admin"></nz-option>
+                <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
+                <nz-option nzValue="viewer" nzLabel="Viewer"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+    <button nz-button nzType="default" (click)="close()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="isLoading">
+        Actualizar Rol
+    </button>
+</div>

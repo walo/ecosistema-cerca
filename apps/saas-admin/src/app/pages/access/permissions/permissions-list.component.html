@@ -1,0 +1,20 @@
+<app-cerca-table [columns]="$any(tableColumns)" [data]="$any(permissions())" [loading]="$any(loading())">
+</app-cerca-table>
+
+<!-- Actions Column -->
+<ng-template #actionsTemplate let-row>
+    <button nz-button nzType="text" nzShape="circle" (click)="openForm(row)">
+        <span nz-icon nzType="edit" nzTheme="outline"></span>
+    </button>
+    <button nz-button nzType="text" nzShape="circle" nzDanger (click)="deletePermission(row)">
+        <span nz-icon nzType="delete" nzTheme="outline"></span>
+    </button>
+</ng-template>
+
+<!-- Status Column -->
+<ng-template #statusTemplate let-item>
+    <span *ngIf="item?.status_id === 1"
+        class="text-green-600 bg-green-50 px-2 py-1 rounded-full text-xs font-medium">Activo</span>
+    <span *ngIf="item?.status_id !== 1"
+        class="text-gray-500 bg-gray-100 px-2 py-1 rounded-full text-xs font-medium">Inactivo</span>
+</ng-template>

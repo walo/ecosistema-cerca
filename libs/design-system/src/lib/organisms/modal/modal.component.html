@@ -1,0 +1,20 @@
+<div class="cc-modal-overlay" *ngIf="isOpen" (click)="onOverlayClick($event)">
+
+    <div class="cc-modal" [ngClass]="'size-' + size" role="dialog" aria-modal="true">
+
+        <header class="cc-modal-header">
+            <h3 class="cc-modal-title">{{ title }}</h3>
+            <button class="cc-modal-close" (click)="close.emit()" type="button">
+                <cc-icon name="close" size="md"></cc-icon>
+            </button>
+        </header>
+
+        <div class="cc-modal-body">
+            <ng-content></ng-content>
+        </div>
+
+        <footer class="cc-modal-footer" *ngIf="showFooter">
+            <ng-content select="[footer]"></ng-content>
+        </footer>
+    </div>
+</div>

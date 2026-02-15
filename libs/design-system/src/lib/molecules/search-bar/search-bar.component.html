@@ -1,0 +1,13 @@
+<div class="cc-search-bar" [ngClass]="variant">
+    <div class="cc-search-icon-wrapper">
+        <cc-icon name="search" size="sm" *ngIf="!loading"></cc-icon>
+        <div class="cc-search-loader" *ngIf="loading"></div>
+    </div>
+
+    <input type="text" class="cc-search-input" [placeholder]="placeholder" [(ngModel)]="searchQuery"
+        (ngModelChange)="onQueryChange()">
+
+    <button class="cc-search-clear" *ngIf="searchQuery && !loading" (click)="clear()" type="button">
+        <cc-icon name="close" size="xs"></cc-icon>
+    </button>
+</div>

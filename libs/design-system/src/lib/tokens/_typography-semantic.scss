@@ -1,0 +1,20 @@
+/* --- Typography Hierarchy --- */
+:root {
+    --h1-size: var(--font-size-h1);
+    --h1-weight: var(--font-weight-semibold);
+
+    --h2-size: var(--font-size-h2);
+    --h2-weight: var(--font-weight-semibold);
+
+    --h3-size: var(--font-size-h3);
+    --h3-weight: var(--font-weight-semibold);
+
+    --body-size: var(--font-size-body);
+    --body-weight: var(--font-weight-regular);
+
+    --sm-size: var(--font-size-sm);
+    --sm-weight: var(--font-weight-regular);
+
+    --caption-size: var(--font-size-caption);
+    --caption-weight: var(--font-weight-regular);
+}

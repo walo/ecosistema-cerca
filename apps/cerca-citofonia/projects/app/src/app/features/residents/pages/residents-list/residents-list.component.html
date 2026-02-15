@@ -1,0 +1,32 @@
+<cc-stack [gap]="6">
+    <!-- 1️⃣ Page Header -->
+    <header class="cc-premium-page-header">
+        <cc-stack [gap]="1">
+            <h1 class="cc-font-heading-lg">Residentes</h1>
+            <p class="cc-font-body-md cc-text-muted">Gestión de copropietarios y arrendatarios del conjunto.</p>
+        </cc-stack>
+        <div class="cc-header-actions">
+            <cc-button variant="primary" icon="add" size="large">Nuevo Residente</cc-button>
+        </div>
+    </header>
+
+    <!-- 2️⃣ Toolbar (Búsqueda + Filtros) -->
+    <cc-card class="cc-toolbar-card" [padding]="'5'">
+        <cc-inline gap="4" align="center">
+            <cc-search-bar class="cc-flex-grow" placeholder="Buscar residente por nombre o unidad...">
+            </cc-search-bar>
+            <cc-button variant="outline" icon="filter_list">Filtros</cc-button>
+        </cc-inline>
+    </cc-card>
+
+    <!-- 3️⃣ Data Card (Tabla Premium) -->
+    <cc-card class="cc-data-card" [padding]="'0'">
+        <cc-data-table [columns]="columns" [data]="data">
+            <ng-template #status let-row>
+                <cc-badge [variant]="row.status === 'Activo' ? 'success' : 'neutral'" type="subtle">
+                    {{ row.status }}
+                </cc-badge>
+            </ng-template>
+        </cc-data-table>
+    </cc-card>
+</cc-stack>

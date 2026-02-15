@@ -43,12 +43,28 @@ export class AdminLayoutComponent {
       exact: true
     },
     {
-      path: '/clients',
-      label: 'Conjuntos (Clientes)',
-      icon: 'team'
+      label: 'Gestión de Clientes',
+      icon: 'team',
+      children: [
+        {
+          path: '/clients',
+          label: 'Conjuntos',
+          icon: 'shop'
+        },
+        {
+          path: '/audit',
+          label: 'Auditoría',
+          icon: 'reconciliation'
+        },
+        {
+          path: '/subscriptions',
+          label: 'Suscripciones',
+          icon: 'schedule'
+        }
+      ]
     },
     {
-      label: 'Planes y Costos',
+      label: 'Catálogo y Planes',
       icon: 'gold',
       children: [
         {
@@ -61,23 +77,50 @@ export class AdminLayoutComponent {
           path: '/plans/features',
           label: 'Características',
           icon: 'appstore'
+        },
+        {
+          path: '/catalog/categories',
+          label: 'Categorías',
+          icon: 'tags'
+        },
+        {
+          path: '/catalog/items',
+          label: 'Items del Catálogo',
+          icon: 'barcode'
         }
       ]
     },
     {
-      path: '/billing',
       label: 'Facturación',
-      icon: 'dollar-circle'
+      icon: 'dollar-circle',
+      children: [
+        {
+          path: '/billing/invoices',
+          label: 'Facturas',
+          icon: 'file-text'
+        },
+        {
+          path: '/billing/coupons',
+          label: 'Cupones',
+          icon: 'percentage'
+        }
+      ]
     },
     {
-      path: '/audit',
-      label: 'Auditoría',
-      icon: 'reconciliation'
-    },
-    {
-      path: '/admins',
-      label: 'Administradores',
-      icon: 'user-add'
+      label: 'Control de Acceso',
+      icon: 'safety',
+      children: [
+        {
+          path: '/access/users',
+          label: 'Administradores',
+          icon: 'user-add'
+        },
+        {
+          path: '/access/permissions',
+          label: 'Permisos',
+          icon: 'safety-certificate'
+        }
+      ]
     },
     {
       path: '/settings',

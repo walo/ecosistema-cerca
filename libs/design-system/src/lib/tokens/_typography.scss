@@ -1,0 +1,26 @@
+// --- Typography (Families and Weights) ---
+$font-family-base: 'Inter', sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// --- Typography (Sizes) ---
+$font-size-caption: 12px;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 24px;
+$font-size-3xl: 32px;
+
+// Semantic mapping
+$font-size-heading-xl: $font-size-3xl;
+$font-size-heading-lg: $font-size-2xl;
+$font-size-heading-md: $font-size-xl;
+$font-size-body-lg: $font-size-lg;
+$font-size-body-md: $font-size-md;
+$font-size-body-sm: $font-size-sm;
+$font-size-caption-text: $font-size-xs;

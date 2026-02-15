@@ -1,0 +1,99 @@
+@use './colors' as *;
+@use './typography' as *;
+@use './spacing' as *;
+@use './radius' as *;
+@use './elevations' as *;
+
+/* =========================================
+   SEMANTIC TOKENS (Theming Strategy)
+   ========================================= */
+
+:root,
+[data-theme="light"] {
+    /* --- Colors (Light) --- */
+    --color-bg-primary: #{$neutral-0};
+    --color-bg-secondary: #{$neutral-50};
+
+    --color-text-primary: #{$neutral-900};
+    --color-text-secondary: #{$neutral-600};
+    --color-text-muted: #{$neutral-400};
+
+    --color-border-subtle: #{$neutral-200};
+    --color-border-strong: #{$neutral-300};
+
+    --color-brand: #{$brand-600};
+    --color-brand-hover: #{$brand-700};
+    --color-focus-ring: rgba(2, 132, 199, 0.2);
+
+    --color-success: #{$success-500};
+    --color-danger: #{$error-500};
+
+    /* --- Glassmorphism (Light) --- */
+    --surface-glass-bg: rgba(255, 255, 255, 0.7);
+    --surface-glass-border: rgba(255, 255, 255, 0.3);
+    --surface-glass-blur: 12px;
+    --surface-glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    /* --- Typography Semantic Mapping --- */
+    --font-heading-xl: #{$font-size-heading-xl};
+    --font-heading-lg: #{$font-size-heading-lg};
+    --font-heading-md: #{$font-size-heading-md};
+    --font-body-lg: #{$font-size-body-lg};
+    --font-body-md: #{$font-size-body-md};
+    --font-caption: #{$font-size-caption-text};
+
+    /* --- Primitives as CSS Variables --- */
+    --font-family-base: #{$font-family-base};
+    --font-weight-regular: #{$font-weight-regular};
+    --font-weight-medium: #{$font-weight-medium};
+    --font-weight-semibold: #{$font-weight-semibold};
+    --font-weight-bold: #{$font-weight-bold};
+
+    --radius-sm: #{$radius-sm};
+    --radius-md: #{$radius-md};
+    --radius-lg: #{$radius-lg};
+    --radius-xl: #{$radius-xl};
+    --radius-full: 9999px;
+
+    --font-size-xs: #{$font-size-xs};
+    --font-size-sm: #{$font-size-sm};
+    --font-size-md: #{$font-size-md};
+    --font-size-lg: #{$font-size-lg};
+    --font-size-xl: #{$font-size-xl};
+    --font-size-2xl: #{$font-size-2xl};
+    --font-size-3xl: #{$font-size-3xl};
+
+    --space-1: #{$space-1};
+    --space-2: #{$space-2};
+    --space-3: #{$space-3};
+    --space-4: #{$space-4};
+    --space-6: #{$space-6};
+    --space-8: calc(var(--space-4) * 2);
+
+    --shadow-sm: #{$shadow-sm};
+    --shadow-md: #{$shadow-md};
+    --shadow-lg: #{$shadow-lg};
+}
+
+[data-theme="dark"] {
+    /* --- Colors (Dark) --- */
+    --color-bg-primary: #{$neutral-900};
+    --color-bg-secondary: #{$neutral-800};
+
+    --color-text-primary: #{$neutral-0};
+    --color-text-secondary: #{$neutral-400};
+    --color-text-muted: #{$neutral-500};
+
+    --color-border-subtle: #{$neutral-700};
+    --color-border-strong: #{$neutral-600};
+
+    --color-brand: #{$brand-500};
+    --color-brand-hover: #{$brand-300};
+    --color-focus-ring: rgba(59, 130, 246, 0.5);
+
+    /* --- Glassmorphism (Dark) --- */
+    --surface-glass-bg: rgba(15, 23, 42, 0.8);
+    --surface-glass-border: rgba(255, 255, 255, 0.1);
+    --surface-glass-blur: 16px;
+    --surface-glass-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}

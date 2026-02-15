@@ -1,0 +1,20 @@
+/* Custom overrides for ng-zorro card to match Design System */
+
+:host ::ng-deep .cerca-card {
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+    /* Card title styling */
+    .ant-card-head {
+        border-bottom-color: var(--color-border-subtle) !important;
+        font-family: var(--font-family-base) !important;
+        font-weight: var(--font-weight-semibold) !important;
+    }
+
+    /* Hoverable enhancement */
+    &.ant-card-hoverable:hover {
+        box-shadow: var(--shadow-lg) !important;
+        transform: translateY(-2px) !important;
+    }
+}

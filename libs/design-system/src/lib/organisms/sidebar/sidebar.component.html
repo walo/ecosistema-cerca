@@ -1,0 +1,30 @@
+<aside class="cc-sidebar" [class.collapsed]="collapsed">
+    <div class="cc-sidebar-header">
+        <div class="cc-sidebar-logo">
+            <ng-content select="[logo]"></ng-content>
+        </div>
+        <button class="cc-sidebar-toggle" (click)="toggleCollapse.emit()" type="button">
+            <cc-icon [name]="collapsed ? 'chevron_right' : 'chevron_left'" size="sm"></cc-icon>
+        </button>
+    </div>
+
+    <nav class="cc-sidebar-nav">
+        <div class="cc-sidebar-group" *ngFor="let item of menuItems">
+            <a class="cc-sidebar-item" [routerLink]="item.route" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: item.exact || false }" [title]="collapsed ? item.label : ''"
+                (click)="onItemClick(item)">
+
+                <cc-icon [name]="item.icon" size="md" class="cc-sidebar-item-icon"></cc-icon>
+                <span class="cc-sidebar-item-label" *ngIf="!collapsed">{{ item.label }}</span>
+
+                <span class="cc-sidebar-item-badge" *ngIf="item.badge && !collapsed">
+                    {{ item.badge }}
+                </span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="cc-sidebar-footer">
+        <ng-content select="[footer]"></ng-content>
+    </div>
+</aside>

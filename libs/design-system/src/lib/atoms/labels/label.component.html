@@ -1,0 +1,4 @@
+<label [attr.for]="for" class="cc-label" [class.has-error]="error">
+    {{ text }}
+    <span *ngIf="required" class="required-indicator" aria-hidden="true">*</span>
+</label>

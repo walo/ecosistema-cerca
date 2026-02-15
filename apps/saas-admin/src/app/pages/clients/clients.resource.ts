@@ -50,6 +50,26 @@ export class ClientsResource extends BaseResource {
                         is_mandatory_message: null
                     },
                     {
+                        col_name: "Plan Actual",
+                        col_ref: "current_plan",
+                        is_filter_parameter: false,
+                        is_visible: true,
+                        is_visible_column: true,
+                        col_width: "150px",
+                        is_mandatory: false,
+                        is_mandatory_message: null
+                    },
+                    {
+                        col_name: "Estado Suscripción",
+                        col_ref: "subscription_status",
+                        is_filter_parameter: true,
+                        is_visible: true,
+                        is_visible_column: true,
+                        col_width: "150px",
+                        is_mandatory: false,
+                        is_mandatory_message: null
+                    },
+                    {
                         col_name: "Estado",
                         col_ref: "status_id",
                         is_filter_parameter: true,

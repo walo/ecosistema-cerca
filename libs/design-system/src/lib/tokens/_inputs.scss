@@ -1,0 +1,15 @@
+/* --- Input Component Tokens --- */
+:root {
+    --input-height-md: 44px;
+    --input-bg: var(--color-bg-primary);
+    --input-radius: var(--radius-md);
+
+    --input-border-default: var(--color-border-subtle);
+    --input-border-hover: var(--color-border-strong);
+    --input-border-focus: var(--color-brand);
+    --input-border-error: var(--color-danger);
+
+    --input-transition: 120ms ease-in-out;
+    --input-focus-ring: 0 0 0 3px var(--color-focus-ring);
+    --input-error-ring: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}

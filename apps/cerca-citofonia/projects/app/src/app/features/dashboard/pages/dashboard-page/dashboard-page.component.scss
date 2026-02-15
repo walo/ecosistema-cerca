@@ -1,0 +1,65 @@
+.metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.metric-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.bg-success {
+        background-color: var(--color-success-600);
+    }
+
+    &.bg-info {
+        background-color: var(--color-info-600);
+    }
+
+    &.bg-warning {
+        background-color: var(--color-warning-600);
+    }
+
+    &.bg-error {
+        background-color: var(--color-error-600);
+    }
+}
+
+.metric-content {
+    .metric-label {
+        color: var(--color-text-muted);
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--space-1);
+    }
+
+    .metric-value {
+        font-size: var(--font-size-2xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+    }
+}
+
+.announcement {
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border-subtle);
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .announcement-text {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-primary);
+        margin-bottom: var(--space-1);
+    }
+
+    .announcement-date {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-muted);
+    }
+}

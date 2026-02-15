@@ -1,0 +1,83 @@
+/* Custom overrides for ng-zorro button to match Design System */
+
+.cerca-btn {
+    /* Ensure minimum touch target size (44x44px) for accessibility */
+    min-height: 44px;
+    min-width: 44px;
+
+    /* Use Design System tokens */
+    font-family: var(--font-family-base);
+    font-weight: var(--btn-font-weight, var(--font-weight-medium));
+    border-radius: var(--btn-radius, var(--radius-md));
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Enhanced focus ring for accessibility */
+    &:focus-visible {
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+        outline: none;
+    }
+
+    /* Micro-interaction: subtle lift on hover */
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+}
+
+/* Primary button customization */
+:host ::ng-deep .ant-btn-primary.cerca-btn {
+    background-color: var(--btn-bg-primary, var(--color-brand));
+    border-color: var(--btn-bg-primary, var(--color-brand));
+    box-shadow: var(--btn-shadow-default, var(--shadow-sm));
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-brand-hover);
+        border-color: var(--color-brand-hover);
+        box-shadow: var(--btn-shadow-hover, var(--shadow-md));
+    }
+}
+
+/* Default (secondary) button customization */
+:host ::ng-deep .ant-btn-default.cerca-btn {
+    background-color: var(--color-bg-primary);
+    color: var(--color-brand);
+    border-color: var(--color-border-strong);
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-bg-secondary);
+        border-color: var(--color-brand);
+        color: var(--color-brand);
+    }
+}
+
+/* Text (ghost) button customization */
+:host ::ng-deep .ant-btn-text.cerca-btn {
+    color: var(--color-text-secondary);
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-bg-secondary);
+        color: var(--color-brand);
+    }
+}
+
+/* Dashed (outline) button customization */
+:host ::ng-deep .ant-btn-dashed.cerca-btn {
+    color: var(--color-brand);
+    border-color: var(--color-brand);
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-bg-secondary);
+        border-color: var(--color-brand-hover);
+        color: var(--color-brand-hover);
+    }
+}
+
+/* Disabled state */
+:host ::ng-deep .cerca-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}

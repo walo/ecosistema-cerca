@@ -1,0 +1,32 @@
+<div class="page-container">
+    <app-section-header [title]="screenData.scr_title" [subtitle]="screenData.scr_description">
+        <!-- Future: Add 'New Subscription' button if needed -->
+    </app-section-header>
+
+    <div class="content-wrapper">
+        <app-cerca-table [columns]="tableColumns" [data]="subscriptions()" [loading]="loading()">
+        </app-cerca-table>
+    </div>
+</div>
+
+<!-- Templates -->
+<ng-template #statusTemplate let-element>
+    <app-cerca-status-badge [status]="getBadgeType(element.status)" [label]="getStatusLabel(element.status)">
+    </app-cerca-status-badge>
+</ng-template>
+
+<ng-template #priceTemplate let-element>
+    {{ element.price | currency:'USD':'symbol':'1.0-0' }}
+</ng-template>
+
+<ng-template #dateTemplate let-element>
+    {{ element.start_date | date:'mediumDate' }}
+</ng-template>
+
+<ng-template #actionsTemplate let-element>
+    <div class="flex gap-2">
+        <button nz-button nzType="text" nzShape="circle" nz-tooltip nzTooltipTitle="Ver Detalles">
+            <span nz-icon nzType="eye" nzTheme="outline"></span>
+        </button>
+    </div>
+</ng-template>

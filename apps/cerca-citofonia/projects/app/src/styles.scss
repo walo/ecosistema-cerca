@@ -1,0 +1,25 @@
+/* Global Styles CERCA Citofonia */
+@use 'tokens/index' as ds;
+
+// Definir tema por defecto
+:root {
+    @extend [data-theme="light"];
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-base);
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Material Icons required for the Design System */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');

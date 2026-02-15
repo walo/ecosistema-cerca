@@ -1,0 +1,43 @@
+<header class="cc-header">
+    <div class="cc-header-left">
+        <button *ngIf="showMenuButton" class="cc-header-menu-btn" (click)="toggleSidebar.emit()" type="button">
+            <cc-icon name="menu" size="md"></cc-icon>
+        </button>
+
+        <div class="cc-header-logo">
+            <ng-content select="[logo]"></ng-content>
+            <span class="cc-header-logo-fallback" *ngIf="!hasLogoContent">
+                CERCA
+            </span>
+        </div>
+
+        <div class="cc-header-breadcrumb">
+            <ng-content select="[breadcrumb]"></ng-content>
+        </div>
+    </div>
+
+    <div class="cc-header-right">
+        <button class="cc-header-action-btn" (click)="notificationClick.emit()">
+            <cc-icon name="notifications" size="md"></cc-icon>
+            <cc-badge *ngIf="notificationsCount > 0" variant="error" type="filled" class="cc-header-badge">
+                {{ notificationsCount > 99 ? '99+' : notificationsCount }}
+            </cc-badge>
+        </button>
+
+        <div class="cc-header-divider"></div>
+
+        <div class="cc-header-user" (click)="onUserClick()" *ngIf="user">
+            <div class="cc-header-user-info">
+                <span class="cc-header-user-name">{{ user.name }}</span>
+                <span class="cc-header-user-role">{{ user.role }}</span>
+            </div>
+
+            <div class="cc-header-avatar">
+                <img *ngIf="user.avatarUrl" [src]="user.avatarUrl" [alt]="user.name">
+                <span *ngIf="!user.avatarUrl">{{ initials }}</span>
+            </div>
+
+            <cc-icon name="expand_more" size="sm" class="cc-header-user-arrow"></cc-icon>
+        </div>
+    </div>
+</header>

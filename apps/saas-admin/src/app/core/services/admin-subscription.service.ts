@@ -22,9 +22,11 @@ export interface Plan {
 export interface PlanFeature {
     id: string;
     plan_id: string;
-    key: string;
+    feature_definition_id: string;
     value: string;
     description?: string;
+    sequence: number;
+    created_at?: string;
 }
 
 export interface FeatureDefinition {
@@ -46,6 +48,21 @@ export interface Client {
     status_id: number;
     created_at: string;
     updated_at?: string;
+
+    // JOIN with active subscription
+    active_subscription?: Array<{
+        id: string;
+        plan?: {
+            name: string;
+            price: number;
+            billing_cycle: number;
+        };
+        status?: {
+            name: string;
+        };
+        start_date: string;
+        end_date?: string;
+    }>;
 }
 
 @Injectable({
@@ -76,17 +93,24 @@ export class AdminSubscriptionService {
     }
 
     async getMRR(): Promise<number> {
+        // Obtener el ID del estado 'activa'
+        const { data: activeStatus } = await this.supabase.client
+            .from('catalog_items')
+            .select('id')
+            .eq('code', 'activa')
+            .single();
+
         // Cálculo simplificado de MRR sumando planes de clientes activos
         const { data } = await this.supabase.client
             .from('clients')
             .select(`
-                subscriptions!inner (
+                client_subscriptions!inner (
                     plan:plans (price)
                 )
             `)
-            .eq('is_active', true);
+            .eq('status_id', activeStatus?.id);
 
-        return data?.reduce((acc, curr: any) => acc + (curr.subscriptions?.[0]?.plan?.price || 0), 0) || 0;
+        return data?.reduce((acc, curr: any) => acc + (curr.client_subscriptions?.[0]?.plan?.price || 0), 0) || 0;
     }
 
     getPlans(): Observable<Plan[]> {
@@ -181,6 +205,7 @@ export class AdminSubscriptionService {
                 .from('plan_features')
                 .select('*')
                 .eq('plan_id', planId)
+                .order('sequence', { ascending: true })
         ).pipe(map(res => res.data || []));
     }
 
@@ -218,7 +243,7 @@ export class AdminSubscriptionService {
         return from(
             this.supabase.client
                 .from('invoices')
-                .select('*, plans(name), clients(name), catalog_items!status_id(name)')
+                .select('*, client_subscriptions!subscription_id(plans(name)), clients(name), catalog_items!status_id(name)')
                 .order('created_at', { ascending: false })
         ).pipe(map(res => res.data || []));
     }
@@ -236,7 +261,13 @@ export class AdminSubscriptionService {
         return from(
             this.supabase.client
                 .from('client_subscriptions')
-                .insert({ client_id: clientId, plan_id: planId })
+                .insert({
+                    client_id: clientId,
+                    plan_id: planId,
+                    status_id: 7, // Activa
+                    start_date: new Date().toISOString(),
+                    auto_renew: true
+                })
                 .select()
                 .single()
         ).pipe(map(res => res.data));
@@ -247,7 +278,17 @@ export class AdminSubscriptionService {
         return from(
             this.supabase.client
                 .from('clients')
-                .select('*')
+                .select(`
+                    *,
+                    active_subscription:client_subscriptions!client_id(
+                        id,
+                        plan:plans(name, price, billing_cycle),
+                        status:catalog_items!status_id(name),
+                        start_date,
+                        end_date
+                    )
+                `)
+                .eq('client_subscriptions.status_id', 7)
                 .order('created_at', { ascending: false })
         ).pipe(map(res => res.data || []));
     }

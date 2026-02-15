@@ -1,0 +1,27 @@
+<div class="cc-form-page">
+    <header class="cc-form-page-header">
+        <cc-stack [gap]="1">
+            <div class="cc-form-page-nav">
+                <ng-content select="[back-button]"></ng-content>
+            </div>
+            <h1 class="cc-form-page-title">{{ title }}</h1>
+        </cc-stack>
+        <div class="cc-form-page-actions-header">
+            <ng-content select="[header-actions]"></ng-content>
+        </div>
+    </header>
+
+    <main class="cc-form-page-main">
+        <div class="cc-form-page-card">
+            <ng-content select="[form-content]"></ng-content>
+        </div>
+    </main>
+
+    <footer class="cc-form-page-footer">
+        <ng-content select="[form-actions]"></ng-content>
+    </footer>
+
+    <div class="cc-form-page-loading-overlay" *ngIf="loading">
+        <div class="cc-form-page-spinner"></div>
+    </div>
+</div>

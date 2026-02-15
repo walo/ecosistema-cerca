@@ -1,0 +1,23 @@
+<div class="cc-list-page">
+    <header class="cc-page-header">
+        <cc-stack [gap]="1">
+            <h1 class="cc-page-title">{{ title }}</h1>
+            <p class="cc-page-description" *ngIf="description">{{ description }}</p>
+        </cc-stack>
+        <div class="cc-page-actions">
+            <ng-content select="[actions]"></ng-content>
+        </div>
+    </header>
+
+    <section class="cc-page-filters" *ngIf="hasFilters">
+        <ng-content select="[filters]"></ng-content>
+    </section>
+
+    <main class="cc-page-main">
+        <ng-content select="[table]"></ng-content>
+    </main>
+
+    <footer class="cc-page-footer">
+        <ng-content select="[pagination]"></ng-content>
+    </footer>
+</div>

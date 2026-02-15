@@ -1,0 +1,15 @@
+/* --- Button Component Tokens --- */
+:root {
+    --btn-height-md: 44px;
+    --btn-radius: var(--radius-md);
+    --btn-font-weight: var(--font-weight-medium);
+
+    --btn-bg-primary: var(--color-brand);
+    --btn-text-primary: #FFFFFF;
+
+    --btn-shadow-default: var(--shadow-sm);
+    --btn-shadow-hover: var(--shadow-md);
+
+    --btn-transition: 150ms ease;
+    --btn-focus-ring: 0 0 0 2px var(--color-focus-ring);
+}

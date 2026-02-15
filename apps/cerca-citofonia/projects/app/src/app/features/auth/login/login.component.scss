@@ -1,0 +1,96 @@
+.login-container {
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden; // Prevent scrolling
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0284C7; // Cerca brand color (Sky-600)
+    background: radial-gradient(circle at top left, #0284C7 0%, #001529 100%);
+    box-sizing: border-box;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 380px; // Narrower
+    padding: 24px; // Compact padding
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    margin: 16px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 16px; // Tighter
+}
+
+.logo-box {
+    width: 40px;
+    height: 40px;
+    background: #0284C7; // Cerca brand
+    color: white;
+    font-size: 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.login-header h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 700;
+    color: #001529;
+}
+
+.accent {
+    color: #0284C7; // Cerca brand
+    font-style: italic;
+}
+
+.subtitle {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #8c8c8c;
+    margin-top: 2px;
+}
+
+.login-options {
+    margin-bottom: 16px; // Tighter
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.login-form-forgot {
+    font-size: 12px;
+    color: #0284C7; // Cerca brand
+}
+
+.login-button {
+    height: 36px; // Smaller button
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.login-alert {
+    margin-bottom: 16px;
+}
+
+.login-footer {
+    margin-top: 24px; // Tighter footer
+    text-align: center;
+    color: #bfbfbf;
+    font-size: 10px;
+}
+
+.login-footer p {
+    margin: 2px 0;
+}
