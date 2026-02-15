@@ -5,6 +5,19 @@
     width: 100%;
 }
 
+.input-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #001529; // Updated from Source of Truth requirement
+    font-weight: 500;
+}
+
+// Override Ant Design Input padding - REMOVED to match standard
+// :host ::ng-deep .ant-input {
+//     padding: 6px 11px; // Reduced padding
+// }
+
 .password-toggle {
     cursor: pointer;
     color: rgba(0, 0, 0, 0.45);

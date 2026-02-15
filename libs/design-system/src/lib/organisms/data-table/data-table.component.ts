@@ -1,8 +1,5 @@
 import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CcIconComponent } from '../../atoms/icons/icon.component';
-import { CcButtonComponent } from '../../atoms/button/button.component';
-import { CcSearchBarComponent } from '../../molecules/search-bar/search-bar.component';
 
 export interface TableColumn {
     key: string;
@@ -14,7 +11,7 @@ export interface TableColumn {
 @Component({
     selector: 'cc-data-table',
     standalone: true,
-    imports: [CommonModule, CcIconComponent, CcSearchBarComponent],
+    imports: [CommonModule],
     templateUrl: './data-table.component.html',
     styleUrls: ['./data-table.component.scss']
 })

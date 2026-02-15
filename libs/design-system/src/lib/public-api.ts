@@ -16,6 +16,7 @@ export * from './organisms/header/header.component';
 export * from './organisms/sidebar/sidebar.component';
 export * from './organisms/data-table/data-table.component';
 export * from './organisms/modal/modal.component';
+export * from './organisms/login/login.component';
 
 // Layout Primitives
 export * from './layout/container/container.component';

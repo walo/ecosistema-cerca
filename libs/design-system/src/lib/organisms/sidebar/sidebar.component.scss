@@ -3,7 +3,7 @@
 .cc-sidebar {
     width: var(--sidebar-width);
     height: 100vh;
-    background: var(--neutral-900); // Base color for sidebar
+    background: var(--color-slate-900); // Base color for sidebar
 
     @supports (backdrop-filter: blur(1px)) {
         background: var(--surface-glass-bg);

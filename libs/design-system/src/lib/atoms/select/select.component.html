@@ -1,8 +1,8 @@
 <div class="cc-select-wrapper">
-    <nz-select class="cerca-select" [nzSize]="size" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-        [nzAllowClear]="allowClear" [nzShowSearch]="showSearch" [(ngModel)]="value"
-        (ngModelChange)="onValueChange($event)">
-        <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label">
+    <nz-select class="cerca-select" [nzSize]="$any(size())" [nzPlaceHolder]="$any(placeholder())"
+        [nzDisabled]="disabled" [nzAllowClear]="$any(allowClear())" [nzShowSearch]="$any(showSearch())"
+        [(ngModel)]="value" (ngModelChange)="onValueChange($event)">
+        <nz-option *ngFor="let option of options()" [nzValue]="option.value" [nzLabel]="option.label">
         </nz-option>
     </nz-select>
 </div>

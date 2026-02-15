@@ -1,0 +1,163 @@
+/* =========================================
+   NG-ZORRO CUSTOM THEME
+   Mapeo de Design System Tokens a Ng-Zorro
+   ========================================= */
+
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/radius' as *;
+@use '../tokens/elevations' as *;
+
+/* --- Primary Theme Colors (Cerca Brand) --- */
+$primary-color: var(--color-primary); // Sky-600 (#0284C7)
+$success-color: var(--color-success); // Emerald-500 (#10B981)
+$error-color: var(--color-alert); // Rose-500 (#F43F5E)
+$warning-color: var(--color-warning); // Amber-500 (#F59E0B)
+$info-color: var(--color-primary); // Blue-500 (#3B82F6)
+
+/* --- Text Colors --- */
+$text-color: var(--color-slate-900); // Stone-900
+$text-color-secondary: var(--color-secondary); // Stone-600
+$heading-color: var(--color-slate-900);
+$disabled-color: var(--color-slate-400);
+
+/* --- Background Colors --- */
+$body-background: var(--color-background); // Stone-50
+$component-background: var(--color-surface); // White
+$background-color-light: var(--color-background);
+$background-color-base: var(--color-slate-100);
+
+/* --- Border Colors --- */
+$border-color-base: var(--color-border);
+$border-color-split: var(--color-border);
+
+/* --- Border Radius (from Design System) --- */
+$border-radius-base: var(--radius-cerca); // 8px
+$border-radius-sm: var(--radius-cerca-sm); // 4px
+
+/* --- Shadows (from Design System) --- */
+$box-shadow-base: var(--shadow-premium);
+$shadow-1-up: var(--shadow-premium);
+$shadow-1-down: var(--shadow-premium);
+$shadow-2: var(--shadow-premium-hover);
+
+/* --- Typography --- */
+$font-family: $font-family-base;
+$font-size-base: $font-size-md; // 16px
+$font-size-lg: $font-size-lg; // 18px
+$font-size-sm: $font-size-sm; // 14px
+
+/* --- Layout --- */
+$layout-header-background: var(--color-surface);
+$layout-body-background: var(--color-background);
+$layout-sider-background: var(--color-slate-900);
+
+/* --- Menu (Sidebar) --- */
+$menu-dark-bg: var(--color-slate-900);
+$menu-dark-submenu-bg: var(--color-slate-800);
+$menu-dark-item-active-bg: var(--color-primary-active);
+$menu-dark-selected-item-text-color: var(--color-white);
+
+/* --- Buttons --- */
+$btn-primary-bg: var(--color-primary);
+$btn-default-border: var(--color-slate-200);
+$btn-border-radius-base: var(--radius-cerca);
+$btn-border-radius-sm: var(--radius-cerca-sm);
+$btn-shadow: var(--shadow-premium);
+$btn-primary-shadow: var(--shadow-premium);
+
+/* --- Input --- */
+$input-border-color: var(--color-slate-200);
+$input-hover-border-color: var(--color-primary);
+$input-bg: var(--color-surface);
+$input-placeholder-color: var(--color-slate-400);
+
+/* --- Table --- */
+$table-header-bg: var(--color-background);
+$table-header-color: var(--color-slate-700);
+$table-row-hover-bg: var(--color-background);
+$table-border-color: var(--color-border);
+
+/* --- Card --- */
+$card-shadow: var(--shadow-premium);
+$card-radius: var(--radius-cerca);
+$card-head-background: var(--color-surface);
+
+/* --- Modal --- */
+$modal-header-bg: var(--color-surface);
+$modal-content-bg: var(--color-surface);
+$modal-mask-bg: rgba(0, 0, 0, 0.45);
+
+/* --- Animation --- */
+$animation-duration-slow: 0.3s;
+$animation-duration-base: 0.2s;
+$animation-duration-fast: 0.1s;
+
+/* --- Import Ng-Zorro Styles --- */
+/* --- Import Ng-Zorro Styles --- */
+@import 'ng-zorro-antd/ng-zorro-antd.min.css';
+
+/* =========================================
+   CUSTOM OVERRIDES
+   ========================================= */
+
+/* Glassmorphism effect for cards and modals */
+.ant-card,
+.ant-modal-content {
+    backdrop-filter: blur(var(--surface-glass-blur));
+    background: var(--surface-glass-bg);
+    border: 1px solid var(--surface-glass-border);
+}
+
+/* Enhanced focus rings for accessibility */
+.ant-btn:focus,
+.ant-input:focus,
+.ant-select-selector:focus {
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+    outline: none;
+}
+
+/* Ensure minimum touch target size (44x44px) */
+.ant-btn {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Smooth transitions for micro-interactions */
+.ant-btn,
+.ant-card,
+.ant-input,
+.ant-select-selector {
+    transition: all var(--btn-transition, 0.2s ease-in-out);
+}
+
+/* Table hover effect */
+.ant-table-tbody>tr:hover>td {
+    background-color: var(--color-slate-50) !important;
+}
+
+/* Menu active state */
+.ant-menu-dark .ant-menu-item-selected {
+    background-color: var(--color-primary-active) !important;
+}
+
+/* Loading skeleton animation */
+.ant-skeleton-element {
+    background: linear-gradient(90deg,
+            var(--color-slate-100) 25%,
+            var(--color-slate-50) 50%,
+            var(--color-slate-100) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

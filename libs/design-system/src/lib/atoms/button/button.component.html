@@ -1,11 +1,7 @@
-<button 
-    nz-button 
-    [nzType]="nzType" 
-    [nzLoading]="loading" 
-    [nzSize]="size"
-    [disabled]="disabled"
-    [type]="type"
+<button nz-button [nzType]="nzType()" [nzLoading]="loading()" [nzSize]="size()" [disabled]="disabled" [type]="type()"
     class="cerca-btn">
-    <span nz-icon [nzType]="icon" *ngIf="icon && !loading"></span>
+    @if (icon(); as iconName) {
+    <span nz-icon [nzType]="$any(iconName)"></span>
+    }
     <ng-content></ng-content>
 </button>

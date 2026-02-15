@@ -1,5 +1,10 @@
 // --- Typography (Families and Weights) ---
-$font-family-base: 'Inter', sans-serif;
+:root {
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-display: "Outfit", sans-serif;
+}
+
+$font-family-base: var(--font-sans);
 
 $font-weight-regular: 400;
 $font-weight-medium: 500;

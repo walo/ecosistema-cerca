@@ -1,18 +1,23 @@
-<nz-input-group [nzPrefix]="prefixTemplateRef" [nzSuffix]="suffixTemplateRef" [class.has-error]="error">
-    <input nz-input [type]="inputType" [placeholder]="placeholder" [disabled]="disabled" [(ngModel)]="value"
-        (ngModelChange)="onChange($event)" (blur)="onTouched()" [nzSize]="size" />
-</nz-input-group>
+@if (label()) {
+<label class="input-label">{{ label() }}</label>
+}
 
-<ng-template #prefixTemplate>
-    <span nz-icon [nzType]="prefix" *ngIf="prefix"></span>
-</ng-template>
-
-<ng-template #suffixTemplate>
-    <ng-container *ngIf="type === 'password'">
-        <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="togglePasswordVisibility()"
-            class="password-toggle"></span>
-    </ng-container>
-    <ng-container *ngIf="type !== 'password' && suffix">
-        <span nz-icon [nzType]="suffix"></span>
-    </ng-container>
-</ng-template>
+@if (prefix() || suffix()) {
+<nz-input-wrapper>
+    @if (prefix()) {
+    <nz-icon nzInputPrefix [nzType]="$any(prefix())" nzTheme="outline" />
+    }
+    <input nz-input [type]="inputType()" [placeholder]="$any(placeholder())" [disabled]="disabled" [(ngModel)]="value"
+        (ngModelChange)="onChange($event)" (blur)="onTouched()" [nzSize]="$any(size())" />
+    @if (type() === 'password') {
+    <nz-icon nzInputSuffix [nzType]="passwordVisible() ? 'eye-invisible' : 'eye'" (click)="togglePasswordVisibility()"
+        class="password-toggle" />
+    }
+    @if (type() !== 'password' && suffix()) {
+    <nz-icon nzInputSuffix [nzType]="$any(suffix())" nzTheme="outline" />
+    }
+</nz-input-wrapper>
+} @else {
+<input nz-input [type]="inputType()" [placeholder]="$any(placeholder())" [disabled]="disabled" [(ngModel)]="value"
+    (ngModelChange)="onChange($event)" (blur)="onTouched()" [nzSize]="$any(size())" />
+}

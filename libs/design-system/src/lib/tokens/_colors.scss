@@ -1,45 +1,77 @@
-// --- Brand Colors (Elite Elegant - Cerca) ---
-$brand-50: #F0F9FF;
-$brand-100: #E0F2FE;
-$brand-200: #BAE6FD;
-$brand-300: #7DD3FC;
-$brand-400: #38BDF8;
-$brand-500: #0EA5E9;
-$brand-600: #0284C7; // Primary
-$brand-700: #0369A1;
-$brand-800: #075985;
-$brand-900: #0C4A6E;
+/* =========================================
+   Cerca Corporate Palette (Fuente de Verdad)
+   ========================================= */
+:root {
+    --color-primary: #002855;
+    /* Navy Blue */
+    --color-primary-hover: #003366;
+    --color-primary-active: #001a38;
+    --color-primary-light: #F1F5F9;
+    --color-primary-accent: #5BC2E7;
+    /* Cyan */
 
-// --- Neutral Colors (Stone Scale) ---
-$neutral-0: #FFFFFF;
-$neutral-50: #FAFAF9;
-$neutral-100: #F5F5F4;
-$neutral-200: #E7E5E4;
-$neutral-300: #D6D3D1;
-$neutral-400: #A8A29E;
-$neutral-500: #78716C;
-$neutral-600: #57534E;
-$neutral-700: #44403C;
-$neutral-800: #292524;
-$neutral-900: #1C1917;
+    --color-background: #F8FAFC;
+    --color-surface: #FFFFFF;
+    --color-border: #F1F5F9;
 
-// --- Feedback Colors ---
-$success-50: #ECFDF5;
-$success-200: #A7F3D0;
-$success-500: #10B981;
-$success-700: #047857;
+    --color-secondary: #475569;
+    --color-secondary-light: #94A3B8;
 
-$warning-50: #FFFBEB;
-$warning-200: #FDE68A;
-$warning-500: #F59E0B;
-$warning-700: #B45309;
+    --color-success: #A2D033;
+    /* Lime Green */
+    --color-success-bg: rgba(162, 208, 51, 0.05);
+    --color-success-text: #7A9F26;
 
-$error-50: #FFF1F2;
-$error-200: #FECDD3;
-$error-500: #F43F5E;
-$error-700: #BE123C;
+    --color-alert: #EF4444;
+    --color-alert-bg: rgba(239, 68, 68, 0.05);
+    --color-alert-text: #DC2626;
 
-$info-50: #EFF6FF;
-$info-200: #BFDBFE;
-$info-500: #3B82F6;
-$info-700: #1D4ED8;
+    --color-warning: #F59E0B;
+    --color-warning-bg: rgba(245, 158, 11, 0.05);
+    --color-warning-text: #D97706;
+
+    --color-slate-900: #0f172a;
+    --color-slate-800: #1e293b;
+    --color-slate-700: #334155;
+    --color-slate-500: #64748b;
+    --color-slate-400: #94a3b8;
+    --color-slate-200: #e2e8f0;
+    --color-slate-100: #f1f5f9;
+    --color-slate-50: #f8fafc;
+    --color-white: #ffffff;
+
+    /* Radius */
+    --radius-cerca: 1.25rem;
+    --radius-cerca-sm: 0.75rem;
+    --radius-cerca-lg: 2rem;
+
+    /* Shadows */
+    --shadow-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    --shadow-premium-hover: 0 30px 40px -5px rgba(0, 0, 0, 0.05), 0 15px 20px -5px rgba(0, 0, 0, 0.03);
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --shadow-sidebar: 4px 0 24px 0 rgba(0, 0, 0, 0.05);
+    --shadow-glow-primary: 0 0 20px rgba(91, 194, 231, 0.15);
+
+    /* Gradients */
+    --gradient-premium: linear-gradient(135deg, #002855 0%, #001a38 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    --gradient-accent: linear-gradient(135deg, #5BC2E7 0%, #002855 100%);
+
+    /* =========================================
+     Ant Design Variable Overrides
+     ========================================= */
+    --ant-primary-color: var(--color-primary);
+    --ant-primary-color-hover: var(--color-primary-hover);
+    --ant-primary-color-active: var(--color-primary-active);
+    --ant-primary-color-outline: rgba(0, 40, 85, 0.2);
+
+    --ant-success-color: var(--color-success);
+    --ant-success-color-hover: #b3e040;
+    --ant-success-color-active: #8fb82b;
+    --ant-success-color-outline: rgba(162, 208, 51, 0.2);
+
+    --ant-info-color: var(--color-primary);
+    --ant-link-color: var(--color-primary-accent);
+    --ant-link-color-hover: #4db3d9;
+    --ant-link-color-active: var(--color-primary);
+}

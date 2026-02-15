@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CcIconComponent } from '../../atoms/icons/icon.component';
 
 export interface NavItem {
@@ -14,7 +14,7 @@ export interface NavItem {
 @Component({
     selector: 'cc-sidebar',
     standalone: true,
-    imports: [CommonModule, RouterModule, CcIconComponent],
+    imports: [CommonModule, RouterLink, RouterLinkActive, CcIconComponent],
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss']
 })
